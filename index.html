@@ -445,6 +445,20 @@ h3, .h3{
 .card-tag.blue{ background:var(--c-secondary-light); color:var(--c-secondary-ink); }
 .card-tag.gold{ background:var(--c-tertiary-light); color:var(--c-tertiary-ink); }
 
+/* ---------- flat colour "block" cards (Miro-style) ---------- */
+.card.tone-orange{ background:var(--c-primary); border-color:transparent; color:#fff; }
+.card.tone-blue{ background:var(--c-secondary); border-color:transparent; color:#0c2338; }
+.card.tone-gold{ background:var(--c-tertiary); border-color:transparent; color:#3d2e00; }
+.card.tone-orange .body-text{ color:rgba(255,255,255,.85); }
+.card.tone-blue .body-text{ color:rgba(12,35,56,.72); }
+.card.tone-gold .body-text{ color:rgba(61,46,0,.75); }
+.card.tone-orange .card-icon,
+.card.tone-blue .card-icon,
+.card.tone-gold .card-icon{ background:rgba(255,255,255,.28); color:inherit; }
+.card.tone-orange .card-tag,
+.card.tone-blue .card-tag,
+.card.tone-gold .card-tag{ background:rgba(255,255,255,.3); color:inherit; }
+
 /* ---------- stats ---------- */
 .stats{
   display:grid;
@@ -623,22 +637,38 @@ h3, .h3{
 .grad-5{ background:linear-gradient(135deg,var(--c-secondary),var(--c-primary)); }
 .grad-6{ background:linear-gradient(135deg,var(--c-primary),var(--c-tertiary)); }
 
-/* ---------- team ---------- */
-.team-card{
+/* ---------- team (flat-colour photo-block cards, Miro-inspired) ---------- */
+.team-card{ text-align:left; }
+.team-photo{
+  position:relative;
+  aspect-ratio:1/1;
   border-radius:var(--r-lg);
-  background:var(--c-paper-alt);
-  border:1px solid var(--c-line);
-  padding:24px;
-  text-align:center;
+  overflow:hidden;
+  margin-bottom:20px;
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
 }
-.avatar{
-  width:88px;height:88px;
-  border-radius:var(--r-pill);
-  margin:0 auto 18px;
-  display:flex; align-items:center; justify-content:center;
-  color:#fff; font-weight:800; font-size:1.4rem;
+.team-photo svg{
+  width:78%;
+  height:92%;
+  position:relative;
+  top:8%;
 }
-.team-card p{ color:var(--c-ink-soft); font-size:.9rem; margin-top:4px; }
+.team-photo.tone-gold{ background:var(--c-tertiary); }
+.team-photo.tone-gold svg{ color:rgba(61,46,0,.55); }
+.team-photo.tone-orange{ background:var(--c-primary); }
+.team-photo.tone-orange svg{ color:rgba(255,255,255,.5); }
+.team-photo.tone-blue{ background:var(--c-secondary); }
+.team-photo.tone-blue svg{ color:rgba(11,33,56,.4); }
+.team-photo.tone-orange-light{ background:var(--c-primary-light); }
+.team-photo.tone-orange-light svg{ color:rgba(168,60,23,.4); }
+.team-photo.tone-blue-light{ background:var(--c-secondary-light); }
+.team-photo.tone-blue-light svg{ color:rgba(47,102,153,.4); }
+.team-photo.tone-gold-light{ background:var(--c-tertiary-light); }
+.team-photo.tone-gold-light svg{ color:rgba(138,106,0,.4); }
+.team-card h3{ margin-bottom:2px; }
+.team-card p{ color:var(--c-ink-soft); font-size:.9rem; }
 
 /* ---------- values ---------- */
 .value-row{
@@ -837,7 +867,7 @@ h3, .h3{
         <p class="lede">Every project — big launch or quiet campaign — moves through the same rhythm.</p>
       </div>
       <div class="grid-3">
-        <div class="card" data-tilt data-reveal>
+        <div class="card tone-orange" data-tilt data-reveal>
           <div class="card-icon orange">
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15 9l-2 5-5 2 2-5 5-2z"/></svg>
           </div>
@@ -845,7 +875,7 @@ h3, .h3{
           <h3>We enable the pursuit of knowledge.</h3>
           <p class="body-text mt-16">Deep-dive research, culture-watching and curiosity, before a single idea hits the page.</p>
         </div>
-        <div class="card" data-tilt data-reveal>
+        <div class="card tone-blue" data-tilt data-reveal>
           <div class="card-icon blue">
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l1.8 5.6L19 9l-5.2 1.4L12 16l-1.8-5.6L5 9l5.2-1.4L12 2z"/></svg>
           </div>
@@ -853,7 +883,7 @@ h3, .h3{
           <h3>We get creative with content.</h3>
           <p class="body-text mt-16">Strategy, design and production working as one team, not three handoffs.</p>
         </div>
-        <div class="card" data-tilt data-reveal>
+        <div class="card tone-gold" data-tilt data-reveal>
           <div class="card-icon gold">
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H9M17 7v8"/></svg>
           </div>

@@ -445,6 +445,20 @@ h3, .h3{
 .card-tag.blue{ background:var(--c-secondary-light); color:var(--c-secondary-ink); }
 .card-tag.gold{ background:var(--c-tertiary-light); color:var(--c-tertiary-ink); }
 
+/* ---------- flat colour "block" cards (Miro-style) ---------- */
+.card.tone-orange{ background:var(--c-primary); border-color:transparent; color:#fff; }
+.card.tone-blue{ background:var(--c-secondary); border-color:transparent; color:#0c2338; }
+.card.tone-gold{ background:var(--c-tertiary); border-color:transparent; color:#3d2e00; }
+.card.tone-orange .body-text{ color:rgba(255,255,255,.85); }
+.card.tone-blue .body-text{ color:rgba(12,35,56,.72); }
+.card.tone-gold .body-text{ color:rgba(61,46,0,.75); }
+.card.tone-orange .card-icon,
+.card.tone-blue .card-icon,
+.card.tone-gold .card-icon{ background:rgba(255,255,255,.28); color:inherit; }
+.card.tone-orange .card-tag,
+.card.tone-blue .card-tag,
+.card.tone-gold .card-tag{ background:rgba(255,255,255,.3); color:inherit; }
+
 /* ---------- stats ---------- */
 .stats{
   display:grid;
@@ -623,22 +637,38 @@ h3, .h3{
 .grad-5{ background:linear-gradient(135deg,var(--c-secondary),var(--c-primary)); }
 .grad-6{ background:linear-gradient(135deg,var(--c-primary),var(--c-tertiary)); }
 
-/* ---------- team ---------- */
-.team-card{
+/* ---------- team (flat-colour photo-block cards, Miro-inspired) ---------- */
+.team-card{ text-align:left; }
+.team-photo{
+  position:relative;
+  aspect-ratio:1/1;
   border-radius:var(--r-lg);
-  background:var(--c-paper-alt);
-  border:1px solid var(--c-line);
-  padding:24px;
-  text-align:center;
+  overflow:hidden;
+  margin-bottom:20px;
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
 }
-.avatar{
-  width:88px;height:88px;
-  border-radius:var(--r-pill);
-  margin:0 auto 18px;
-  display:flex; align-items:center; justify-content:center;
-  color:#fff; font-weight:800; font-size:1.4rem;
+.team-photo svg{
+  width:78%;
+  height:92%;
+  position:relative;
+  top:8%;
 }
-.team-card p{ color:var(--c-ink-soft); font-size:.9rem; margin-top:4px; }
+.team-photo.tone-gold{ background:var(--c-tertiary); }
+.team-photo.tone-gold svg{ color:rgba(61,46,0,.55); }
+.team-photo.tone-orange{ background:var(--c-primary); }
+.team-photo.tone-orange svg{ color:rgba(255,255,255,.5); }
+.team-photo.tone-blue{ background:var(--c-secondary); }
+.team-photo.tone-blue svg{ color:rgba(11,33,56,.4); }
+.team-photo.tone-orange-light{ background:var(--c-primary-light); }
+.team-photo.tone-orange-light svg{ color:rgba(168,60,23,.4); }
+.team-photo.tone-blue-light{ background:var(--c-secondary-light); }
+.team-photo.tone-blue-light svg{ color:rgba(47,102,153,.4); }
+.team-photo.tone-gold-light{ background:var(--c-tertiary-light); }
+.team-photo.tone-gold-light svg{ color:rgba(138,106,0,.4); }
+.team-card h3{ margin-bottom:2px; }
+.team-card p{ color:var(--c-ink-soft); font-size:.9rem; }
 
 /* ---------- values ---------- */
 .value-row{
@@ -896,32 +926,44 @@ h3, .h3{
       </div>
       <div class="grid-3">
         <div class="team-card" data-reveal>
-          <div class="avatar" style="background:linear-gradient(135deg,var(--c-primary),#ff8a5c)">AR</div>
+          <div class="team-photo tone-gold" data-tilt>
+            <svg viewBox="0 0 100 100" fill="currentColor"><circle cx="50" cy="36" r="21"/><path d="M10 100c0-26 18-40 40-40s40 14 40 40"/></svg>
+          </div>
           <h3 class="h3">Amina R.</h3>
           <p>Executive Producer</p>
         </div>
         <div class="team-card" data-reveal>
-          <div class="avatar" style="background:linear-gradient(135deg,var(--c-secondary),#8fd0ff)">KT</div>
+          <div class="team-photo tone-blue" data-tilt>
+            <svg viewBox="0 0 100 100" fill="currentColor"><circle cx="50" cy="36" r="21"/><path d="M10 100c0-26 18-40 40-40s40 14 40 40"/></svg>
+          </div>
           <h3 class="h3">Karim T.</h3>
           <p>Creative Director</p>
         </div>
         <div class="team-card" data-reveal>
-          <div class="avatar" style="background:linear-gradient(135deg,var(--c-tertiary),#ffe27a);color:#8a6a00;">SL</div>
+          <div class="team-photo tone-orange" data-tilt>
+            <svg viewBox="0 0 100 100" fill="currentColor"><circle cx="50" cy="36" r="21"/><path d="M10 100c0-26 18-40 40-40s40 14 40 40"/></svg>
+          </div>
           <h3 class="h3">Sofia L.</h3>
           <p>Brand Strategist</p>
         </div>
         <div class="team-card" data-reveal>
-          <div class="avatar" style="background:linear-gradient(135deg,var(--c-ink),#5c534a)">YB</div>
+          <div class="team-photo tone-orange-light" data-tilt>
+            <svg viewBox="0 0 100 100" fill="currentColor"><circle cx="50" cy="36" r="21"/><path d="M10 100c0-26 18-40 40-40s40 14 40 40"/></svg>
+          </div>
           <h3 class="h3">Yusuf B.</h3>
           <p>Experience Designer</p>
         </div>
         <div class="team-card" data-reveal>
-          <div class="avatar" style="background:linear-gradient(135deg,var(--c-secondary),var(--c-primary))">NH</div>
+          <div class="team-photo tone-gold-light" data-tilt>
+            <svg viewBox="0 0 100 100" fill="currentColor"><circle cx="50" cy="36" r="21"/><path d="M10 100c0-26 18-40 40-40s40 14 40 40"/></svg>
+          </div>
           <h3 class="h3">Nadia H.</h3>
           <p>Account Director</p>
         </div>
         <div class="team-card" data-reveal>
-          <div class="avatar" style="background:linear-gradient(135deg,var(--c-primary),var(--c-tertiary))">OF</div>
+          <div class="team-photo tone-blue-light" data-tilt>
+            <svg viewBox="0 0 100 100" fill="currentColor"><circle cx="50" cy="36" r="21"/><path d="M10 100c0-26 18-40 40-40s40 14 40 40"/></svg>
+          </div>
           <h3 class="h3">Omar F.</h3>
           <p>Technical Director</p>
         </div>
