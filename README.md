@@ -14,17 +14,13 @@ This is a concept build with placeholder/dummy content — client names, team me
 
 ## Stack
 
-Static HTML/CSS/vanilla JS, no build step or dependencies. Shared styles and interactions live in `assets/css/style.css` and `assets/js/main.js`.
+Static HTML with CSS and JS inlined directly in each page — no build step, no dependencies, no separate asset files. Every `.html` file is fully self-contained, so you can download any single page and open it straight in a browser and it'll look and behave exactly as intended.
 
-Brand tokens (colors, radii, type scale) are defined as CSS custom properties at the top of `style.css`:
+Brand tokens (colors, radii, type scale) are defined as CSS custom properties at the top of each page's `<style>` block:
 
 - Primary `#ec5628` · Secondary `#5799d2` · Tertiary `#ffcc02`
 - Typeface: Public Sans (Google Fonts)
 
 ## Running locally
 
-Just open `index.html` in a browser, or serve the folder with any static file server:
-
-```bash
-python3 -m http.server 8000
-```
+Just open any `.html` file directly in a browser — no server required.
