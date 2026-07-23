@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GD+ Website — Design Proposal</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%23ec5628'/%3E%3Crect x='38' y='14' width='24' height='72' rx='12' fill='white'/%3E%3Crect x='14' y='38' width='72' height='24' rx='12' fill='white'/%3E%3C/svg%3E">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,600&display=swap');
+
+:root{
+  --c-primary: #ec5628;
+  --c-primary-ink: #a83c17;
+  --c-primary-light: #ffe3d6;
+  --c-secondary: #5799d2;
+  --c-secondary-ink: #2f6699;
+  --c-secondary-light: #dcecfa;
+  --c-tertiary: #ffcc02;
+  --c-tertiary-ink: #8a6a00;
+  --c-tertiary-light: #fff3c4;
+  --c-ink: #1c1917;
+  --c-ink-soft: #4a4441;
+  --c-paper: #fdf7f2;
+  --c-paper-alt: #ffffff;
+  --c-surface: #f5ece4;
+  --c-line: #e8dcd1;
+  --c-dark: #201d1a;
+  --r-sm: 12px;
+  --r-md: 20px;
+  --r-lg: 30px;
+  --r-pill: 999px;
+  --font: 'Public Sans', system-ui, sans-serif;
+}
+*,*::before,*::after{ box-sizing:border-box; }
+body{
+  margin:0;
+  font-family:var(--font);
+  background:#8d857c;
+  color:var(--c-ink);
+  -webkit-font-smoothing:antialiased;
+}
+img,svg{ display:block; max-width:100%; }
+a{ color:inherit; }
+h1,h2,h3,h4,p{ margin:0; }
+ul{ margin:0; padding:0; list-style:none; }
+
+/* ---------- doc chrome (screen only) ---------- */
+.doc-topbar{
+  position:sticky; top:0; z-index:50;
+  background:var(--c-ink); color:#fff;
+  padding:12px 20px;
+  display:flex; align-items:center; justify-content:space-between;
+  font-size:.82rem; font-weight:600;
+}
+.doc-topbar span{ color:#a89f95; }
+.doc-topbar button{
+  font-family:inherit; cursor:pointer;
+  background:var(--c-primary); color:#fff; border:none;
+  padding:9px 18px; border-radius:var(--r-pill); font-weight:700; font-size:.82rem;
+}
+.doc-wrap{ padding:32px 0 80px; display:flex; flex-direction:column; align-items:center; gap:28px; }
+
+/* ---------- page frame (A4-ish, both screen + print) ---------- */
+.doc-page{
+  width:210mm;
+  min-height:297mm;
+  background:var(--c-paper-alt);
+  padding:20mm;
+  box-shadow:0 30px 70px -30px rgba(0,0,0,.5);
+  position:relative;
+  overflow:hidden;
+}
+.doc-page.dark{ background:var(--c-dark); color:#fff; }
+.page-label{
+  position:absolute; top:10mm; right:20mm;
+  font-size:.68rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--c-ink-soft);
+}
+.doc-page.dark .page-label{ color:#a89f95; }
+.page-kicker{
+  display:inline-flex; align-items:center; gap:8px;
+  font-size:.78rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--c-primary-ink);
+}
+.doc-page.dark .page-kicker{ color:var(--c-tertiary); }
+.page-kicker::before{ content:''; width:7px; height:7px; border-radius:50%; background:var(--c-primary); }
+.doc-page.dark .page-kicker::before{ background:var(--c-tertiary); }
+.page-title{ font-size:2.1rem; font-weight:800; letter-spacing:-.01em; margin-top:10px; line-height:1.1; }
+.page-sub{ font-size:1rem; color:var(--c-ink-soft); margin-top:12px; line-height:1.6; max-width:480px; }
+.doc-page.dark .page-sub{ color:#cfc6bd; }
+
+/* ---------- logo mark ---------- */
+.logo-mark{ position:relative; width:30px; height:30px; flex:none; }
+.logo-mark::before,.logo-mark::after{ content:''; position:absolute; border-radius:var(--r-pill); background:linear-gradient(135deg, var(--c-secondary), var(--c-primary) 55%, var(--c-tertiary)); }
+.logo-mark::before{ left:38%; right:38%; top:0; bottom:0; }
+.logo-mark::after{ top:38%; bottom:38%; left:0; right:0; }
+.logo-mark.big{ width:64px; height:64px; }
+
+/* ---------- cover ---------- */
+.cover{ display:flex; flex-direction:column; justify-content:space-between; height:257mm; position:relative; z-index:1; }
+.cover-floater{ position:absolute; border-radius:var(--r-pill); opacity:.5; }
+.cover-floater::before,.cover-floater::after{ content:''; position:absolute; border-radius:var(--r-pill); background:#fff; opacity:.08; }
+.cover-floater::before{ left:38%; right:38%; top:0; bottom:0; }
+.cover-floater::after{ top:38%; bottom:38%; left:0; right:0; }
+.cover-brand{ display:flex; align-items:center; gap:14px; }
+.cover-brand b{ font-size:1.2rem; font-weight:800; }
+.cover-brand small{ display:block; font-size:.62rem; font-weight:700; letter-spacing:.14em; color:#a89f95; text-transform:uppercase; }
+.cover-title{ font-size:3.6rem; font-weight:800; line-height:1.02; letter-spacing:-.02em; max-width:520px; }
+.cover-title .accent{ background:linear-gradient(90deg, var(--c-secondary), var(--c-primary), var(--c-tertiary)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.cover-tagline{ font-size:1.05rem; color:#cfc6bd; margin-top:18px; max-width:420px; }
+.cover-meta{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; border-top:1px solid rgba(255,255,255,.15); padding-top:20px; }
+.cover-meta h4{ font-size:.68rem; letter-spacing:.12em; text-transform:uppercase; color:#a89f95; margin-bottom:6px; }
+.cover-meta p{ font-weight:700; font-size:.95rem; }
+
+/* ---------- table of contents ---------- */
+.toc-list{ margin-top:36px; display:flex; flex-direction:column; }
+.toc-row{ display:flex; align-items:baseline; gap:16px; padding:18px 0; border-top:1px solid var(--c-line); }
+.toc-num{ font-weight:800; color:var(--c-primary); font-size:.95rem; width:28px; flex:none; }
+.toc-name{ font-weight:700; font-size:1.15rem; flex:1; }
+.toc-page{ color:var(--c-ink-soft); font-size:.85rem; font-weight:600; }
+
+/* ---------- approach steps ---------- */
+.approach-grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:32px; }
+.approach-card{ border:1px solid var(--c-line); border-radius:var(--r-md); padding:22px; background:var(--c-paper); }
+.approach-card .num{ font-weight:800; font-size:1.6rem; color:var(--c-line); }
+.approach-card h3{ font-size:1.05rem; font-weight:800; margin-top:6px; }
+.approach-card p{ font-size:.86rem; color:var(--c-ink-soft); line-height:1.55; margin-top:8px; }
+
+/* ---------- creative direction ---------- */
+.swatch-row{ display:flex; gap:14px; margin-top:28px; }
+.swatch{ flex:1; border-radius:var(--r-md); padding:16px; color:#fff; }
+.swatch b{ display:block; font-size:.85rem; }
+.swatch span{ display:block; font-size:.72rem; opacity:.85; margin-top:4px; }
+.gradient-bar{ height:34px; border-radius:var(--r-pill); margin-top:14px; background:linear-gradient(90deg, var(--c-secondary), var(--c-primary), var(--c-tertiary)); }
+.idea-list{ display:grid; grid-template-columns:1fr 1fr; gap:10px 24px; margin-top:22px; }
+.idea-list li{ font-size:.86rem; padding:10px 0; border-top:1px solid var(--c-line); display:flex; gap:10px; }
+.idea-list li::before{ content:'+'; color:var(--c-primary); font-weight:800; }
+
+/* ---------- sitemap ---------- */
+.sitemap{ margin-top:44px; display:flex; flex-direction:column; align-items:center; }
+.sm-root{ background:var(--c-ink); color:#fff; padding:14px 26px; border-radius:var(--r-pill); font-weight:800; font-size:.95rem; }
+.sm-line{ width:1.5px; height:26px; background:var(--c-line); }
+.sm-branch{ display:flex; align-items:flex-start; justify-content:center; width:100%; gap:0; }
+.sm-node-wrap{ display:flex; flex-direction:column; align-items:center; flex:1; }
+.sm-hline{ width:100%; height:1.5px; background:var(--c-line); position:relative; top:0; }
+.sm-node{ margin-top:0; background:var(--c-paper-alt); border:1.5px solid var(--c-line); border-radius:var(--r-md); padding:16px 14px; text-align:center; width:88%; }
+.sm-node b{ font-size:.88rem; }
+.sm-node p{ font-size:.7rem; color:var(--c-ink-soft); margin-top:6px; line-height:1.4; }
+
+/* ---------- wireframes ---------- */
+.wf-grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:20px; }
+.wf-frame{ border:1.5px solid var(--c-ink); border-radius:var(--r-sm); overflow:hidden; background:#fff; }
+.wf-frame h5{ font-size:.72rem; font-weight:800; text-transform:uppercase; letter-spacing:.08em; padding:8px 10px; border-bottom:1.5px solid var(--c-ink); }
+.wf-body{ padding:7px; display:flex; flex-direction:column; gap:4px; }
+.wf-block{ border:1.5px dashed #b9b0a6; background:#f2ede8; border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:.56rem; font-weight:700; color:#877d72; text-transform:uppercase; letter-spacing:.04em; padding:4px; text-align:center; }
+.wf-row{ display:flex; gap:6px; }
+.wf-row > .wf-block{ flex:1; }
+
+/* ---------- timeline ---------- */
+.timeline{ margin-top:40px; display:flex; position:relative; }
+.timeline::before{ content:''; position:absolute; top:15px; left:5%; right:5%; height:2px; background:var(--c-line); }
+.tl-step{ flex:1; text-align:center; position:relative; padding:0 6px; }
+.tl-dot{ width:30px; height:30px; border-radius:50%; background:var(--c-ink); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:.78rem; margin:0 auto; position:relative; z-index:1; }
+.tl-step:nth-child(1) .tl-dot{ background:var(--c-primary); }
+.tl-step:nth-child(2) .tl-dot{ background:var(--c-secondary); }
+.tl-step:nth-child(3) .tl-dot{ background:var(--c-tertiary-ink); }
+.tl-step:nth-child(4) .tl-dot{ background:var(--c-secondary-ink); }
+.tl-step:nth-child(5) .tl-dot{ background:var(--c-ink); }
+.tl-step h4{ font-size:.82rem; font-weight:800; margin-top:14px; }
+.tl-step span{ display:block; font-size:.68rem; color:var(--c-ink-soft); margin-top:3px; font-weight:700; }
+.tl-step p{ font-size:.72rem; color:var(--c-ink-soft); margin-top:8px; line-height:1.5; }
+
+.deliv-table{ width:100%; border-collapse:collapse; margin-top:36px; font-size:.82rem; }
+.deliv-table th{ text-align:left; font-size:.68rem; letter-spacing:.08em; text-transform:uppercase; color:var(--c-ink-soft); padding:0 0 10px; border-bottom:1.5px solid var(--c-ink); }
+.deliv-table td{ padding:14px 0; border-bottom:1px solid var(--c-line); vertical-align:top; }
+.deliv-table td:first-child{ font-weight:800; white-space:nowrap; padding-right:16px; }
+
+/* ---------- closing ---------- */
+.closing{ display:flex; flex-direction:column; justify-content:space-between; height:257mm; position:relative; z-index:1; }
+.closing-title{ font-size:2.6rem; font-weight:800; line-height:1.08; max-width:460px; }
+.cta-chip{ display:inline-flex; align-items:center; gap:10px; background:var(--c-primary); color:#fff; padding:14px 26px; border-radius:var(--r-pill); font-weight:700; font-size:.9rem; margin-top:24px; }
+.contact-block{ display:grid; grid-template-columns:1fr 1fr; gap:20px; border-top:1px solid rgba(255,255,255,.15); padding-top:20px; }
+.contact-block h4{ font-size:.68rem; letter-spacing:.12em; text-transform:uppercase; color:#a89f95; margin-bottom:8px; }
+.contact-block p{ font-weight:700; font-size:.92rem; line-height:1.5; }
+
+@media print{
+  body{ background:#fff; }
+  .doc-topbar{ display:none; }
+  .doc-wrap{ padding:0; gap:0; }
+  .doc-page{ box-shadow:none; width:auto; min-height:0; page-break-after:always; }
+  * { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+}
+@media screen and (max-width:900px){
+  .doc-page{ width:100%; min-height:auto; padding:8vw; }
+  .approach-grid, .wf-grid, .idea-list{ grid-template-columns:1fr; }
+  .cover-meta, .contact-block{ grid-template-columns:1fr; }
+  .timeline{ flex-direction:column; gap:22px; }
+  .timeline::before{ display:none; }
+}
+</style>
+</head>
+<body>
+
+<div class="doc-topbar">
+  <span>GD+ Website — Design Proposal · editable draft</span>
+  <button onclick="window.print()">Print / Save as PDF</button>
+</div>
+
+<div class="doc-wrap">
+
+  <!-- COVER -->
+  <section class="doc-page dark cover">
+    <div class="cover-floater" style="width:220px; top:-60px; right:-60px;"></div>
+    <div class="cover-floater" style="width:120px; bottom:10%; left:-40px;"></div>
+    <div class="cover-brand">
+      <div class="logo-mark big"></div>
+      <div>
+        <b>GD+</b>
+        <small>Communications &amp; Events Agency</small>
+      </div>
+    </div>
+    <div>
+      <span class="page-kicker">RFP Response</span>
+      <h1 class="cover-title">Website Design<br><span class="accent">Proposal.</span></h1>
+      <p class="cover-tagline">A new digital home for GD+, built on your brand guidelines — Material 3 discipline, three-colour palette, and enough personality to feel like an events studio, not a template.</p>
+    </div>
+    <div class="cover-meta">
+      <div>
+        <h4>Prepared for</h4>
+        <p>GD+ — A Gulf Dunes Division</p>
+      </div>
+      <div>
+        <h4>Prepared by</h4>
+        <p>[Your Studio Name]</p>
+      </div>
+      <div>
+        <h4>Date</h4>
+        <p>23 July 2026</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOC -->
+  <section class="doc-page">
+    <span class="page-label">GD+ Proposal · 02</span>
+    <span class="page-kicker">Contents</span>
+    <h2 class="page-title">What's inside.</h2>
+    <div class="toc-list">
+      <div class="toc-row"><span class="toc-num">01</span><span class="toc-name">Executive Summary</span><span class="toc-page">Pg. 03</span></div>
+      <div class="toc-row"><span class="toc-num">02</span><span class="toc-name">Our Approach</span><span class="toc-page">Pg. 04</span></div>
+      <div class="toc-row"><span class="toc-num">03</span><span class="toc-name">Creative Direction</span><span class="toc-page">Pg. 05</span></div>
+      <div class="toc-row"><span class="toc-num">04</span><span class="toc-name">Sitemap</span><span class="toc-page">Pg. 06</span></div>
+      <div class="toc-row"><span class="toc-num">05</span><span class="toc-name">Wireframes</span><span class="toc-page">Pg. 07</span></div>
+      <div class="toc-row"><span class="toc-num">06</span><span class="toc-name">Timeline &amp; Deliverables</span><span class="toc-page">Pg. 08</span></div>
+      <div class="toc-row"><span class="toc-num">07</span><span class="toc-name">Next Steps</span><span class="toc-page">Pg. 09</span></div>
+    </div>
+  </section>
+
+  <!-- EXECUTIVE SUMMARY -->
+  <section class="doc-page">
+    <span class="page-label">GD+ Proposal · 03</span>
+    <span class="page-kicker">01 — Executive Summary</span>
+    <h2 class="page-title">A website that behaves like the agency it represents.</h2>
+    <p class="page-sub">GD+ already has a disciplined visual system — a defined colour palette, Material 3 shape language, and a clear brand voice around People, Ideas and Possibilities. Our brief was to turn that system into a website that feels current, confident, and a little playful, without straying from the guidelines.</p>
+    <div class="approach-grid" style="margin-top:44px;">
+      <div class="approach-card">
+        <div class="num">5</div>
+        <h3>Pages</h3>
+        <p>Home, About, Services, Case Studies and Contact — enough to tell the full story without overbuilding.</p>
+      </div>
+      <div class="approach-card">
+        <div class="num">3</div>
+        <h3>Brand colours, no more</h3>
+        <p>Every card, gradient, icon and highlight on the site is built from the approved primary, secondary and tertiary tokens.</p>
+      </div>
+      <div class="approach-card">
+        <div class="num">0</div>
+        <h3>Build dependencies</h3>
+        <p>Static HTML, CSS and vanilla JS — no framework, no build step. Easy to hand off, host anywhere, and edit directly.</p>
+      </div>
+      <div class="approach-card">
+        <div class="num">∞</div>
+        <h3>Room to grow</h3>
+        <p>A component system (cards, buttons, sections) that scales to new pages and campaigns without starting over.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPROACH -->
+  <section class="doc-page">
+    <span class="page-label">GD+ Proposal · 04</span>
+    <span class="page-kicker">02 — Our Approach</span>
+    <h2 class="page-title">Discover, Design, Build, Refine.</h2>
+    <p class="page-sub">The same four-stage rhythm we'd bring to any GD+ project — applied here to our own process of building the site.</p>
+    <div class="approach-grid">
+      <div class="approach-card">
+        <div class="num">01</div>
+        <h3>Discover</h3>
+        <p>Reviewed the GD+ website guidelines end to end: colour tokens, Material 3 shape and elevation rules, typography scale, and the reference example — treating it as a style guide, not a fixed layout.</p>
+      </div>
+      <div class="approach-card">
+        <div class="num">02</div>
+        <h3>Design</h3>
+        <p>Translated the guidelines into a working design system — type scale, button and card components, spacing rhythm — then sketched the sitemap and page wireframes shown later in this document.</p>
+      </div>
+      <div class="approach-card">
+        <div class="num">03</div>
+        <h3>Build</h3>
+        <p>Built all five pages as self-contained HTML files with shared CSS/JS patterns, layering in motion — scroll reveals, magnetic buttons, a kinetic hero, gradient highlights — for a site that feels alive.</p>
+      </div>
+      <div class="approach-card">
+        <div class="num">04</div>
+        <h3>Refine</h3>
+        <p>Iterated against additional creative references and brand-asset pages as they came in, folding new patterns (flat-colour cards, glow previews, event illustration) back into the shared system.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CREATIVE DIRECTION -->
+  <section class="doc-page">
+    <span class="page-label">GD+ Proposal · 05</span>
+    <span class="page-kicker">03 — Creative Direction</span>
+    <h2 class="page-title">On-brand, on purpose.</h2>
+    <p class="page-sub">Every visual decision traces back to the same three colours and the same type family — the personality comes from how they're used, not from adding new ones.</p>
+    <div class="swatch-row">
+      <div class="swatch" style="background:#ec5628;"><b>Primary</b><span>#EC5628</span></div>
+      <div class="swatch" style="background:#5799d2;"><b>Secondary</b><span>#5799D2</span></div>
+      <div class="swatch" style="background:#ffcc02; color:#3d2e00;"><b>Tertiary</b><span>#FFCC02</span></div>
+    </div>
+    <div class="gradient-bar"></div>
+    <p style="font-size:.72rem; color:var(--c-ink-soft); margin-top:8px;">Official brand gradient — always blue → orange → yellow, never flipped or rotated. Applied to headline emphasis and the wordmark's "G".</p>
+    <ul class="idea-list">
+      <li>Kinetic hero — gradient blob with a drifting event illustration</li>
+      <li>Gradient text highlight on one key phrase per headline</li>
+      <li>Flat-colour pillar &amp; team cards, Miro-inspired, GD+ palette only</li>
+      <li>Glow-preview cards for featured case studies</li>
+      <li>Floating sticker badges and a giant watermark "G"</li>
+      <li>Magnetic buttons, scroll reveals, animated counters</li>
+      <li>Confetti burst on contact form submission</li>
+      <li>Public Sans throughout, Material 3 rounded shape language</li>
+    </ul>
+  </section>
+
+  <!-- SITEMAP -->
+  <section class="doc-page">
+    <span class="page-label">GD+ Proposal · 06</span>
+    <span class="page-kicker">04 — Sitemap</span>
+    <h2 class="page-title">Five pages, one clear path.</h2>
+    <p class="page-sub">A focused structure — every page reachable in one click from the nav, with Home doing double duty as a summary of the rest.</p>
+    <div class="sitemap">
+      <div class="sm-root">Home</div>
+      <div class="sm-line"></div>
+      <div class="sm-branch">
+        <div class="sm-node-wrap"><div class="sm-hline"></div><div class="sm-node"><b>About</b><p>Story, pillars, values, team</p></div></div>
+        <div class="sm-node-wrap"><div class="sm-hline"></div><div class="sm-node"><b>Services</b><p>Six disciplines, process, why GD+</p></div></div>
+        <div class="sm-node-wrap"><div class="sm-hline"></div><div class="sm-node"><b>Case Studies</b><p>Filterable project grid</p></div></div>
+        <div class="sm-node-wrap"><div class="sm-hline"></div><div class="sm-node"><b>Contact</b><p>Form, studio info, hours</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WIREFRAMES -->
+  <section class="doc-page">
+    <span class="page-label">GD+ Proposal · 07</span>
+    <span class="page-kicker">05 — Wireframes</span>
+    <h2 class="page-title">Structure before styling.</h2>
+    <p class="page-sub">Low-fidelity section maps for each page — the blueprint the final design was built on top of.</p>
+    <div class="wf-grid">
+      <div class="wf-frame">
+        <h5>Home</h5>
+        <div class="wf-body">
+          <div class="wf-block" style="height:20px;">Nav</div>
+          <div class="wf-row" style="height:60px;"><div class="wf-block">Hero copy + CTA</div><div class="wf-block">Blob visual</div></div>
+          <div class="wf-block" style="height:16px;">Marquee</div>
+          <div class="wf-row" style="height:34px;"><div class="wf-block">Explore</div><div class="wf-block">Create</div><div class="wf-block">Transcend</div></div>
+          <div class="wf-block" style="height:24px;">Stats strip</div>
+          <div class="wf-row" style="height:40px;"><div class="wf-block">Work 1</div><div class="wf-block">Work 2</div><div class="wf-block">Work 3</div></div>
+          <div class="wf-block" style="height:16px;">Partners marquee</div>
+          <div class="wf-block" style="height:30px;">CTA banner</div>
+          <div class="wf-block" style="height:20px;">Newsletter</div>
+          <div class="wf-block" style="height:24px;">Footer</div>
+        </div>
+      </div>
+      <div class="wf-frame">
+        <h5>About</h5>
+        <div class="wf-body">
+          <div class="wf-block" style="height:20px;">Nav</div>
+          <div class="wf-block" style="height:44px;">Page hero</div>
+          <div class="wf-row" style="height:50px;"><div class="wf-block">Story copy</div><div class="wf-block">Blob visual</div></div>
+          <div class="wf-block" style="height:60px;">Pillars — Explore / Create / Transcend</div>
+          <div class="wf-row" style="height:34px;"><div class="wf-block">Value</div><div class="wf-block">Value</div><div class="wf-block">Value</div><div class="wf-block">Value</div></div>
+          <div class="wf-row" style="height:40px;"><div class="wf-block">Team</div><div class="wf-block">Team</div><div class="wf-block">Team</div></div>
+          <div class="wf-block" style="height:30px;">CTA banner</div>
+          <div class="wf-block" style="height:20px;">Newsletter + Footer</div>
+        </div>
+      </div>
+      <div class="wf-frame">
+        <h5>Services</h5>
+        <div class="wf-body">
+          <div class="wf-block" style="height:20px;">Nav</div>
+          <div class="wf-block" style="height:44px;">Page hero</div>
+          <div class="wf-block" style="height:70px;">Services list 01–06</div>
+          <div class="wf-row" style="height:34px;"><div class="wf-block">Discover</div><div class="wf-block">Design</div><div class="wf-block">Deliver</div><div class="wf-block">Delight</div></div>
+          <div class="wf-row" style="height:34px;"><div class="wf-block">Speed</div><div class="wf-block">Partner</div><div class="wf-block">Craft</div></div>
+          <div class="wf-block" style="height:30px;">CTA banner</div>
+          <div class="wf-block" style="height:20px;">Newsletter + Footer</div>
+        </div>
+      </div>
+      <div class="wf-frame">
+        <h5>Case Studies</h5>
+        <div class="wf-body">
+          <div class="wf-block" style="height:20px;">Nav</div>
+          <div class="wf-block" style="height:44px;">Page hero</div>
+          <div class="wf-block" style="height:18px;">Filter chips</div>
+          <div class="wf-row" style="height:70px;"><div class="wf-block">Card</div><div class="wf-block">Card</div><div class="wf-block">Card</div></div>
+          <div class="wf-row" style="height:70px;"><div class="wf-block">Card</div><div class="wf-block">Card</div><div class="wf-block">Card</div></div>
+          <div class="wf-block" style="height:30px;">CTA banner</div>
+          <div class="wf-block" style="height:20px;">Newsletter + Footer</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section class="doc-page">
+    <span class="page-label">GD+ Proposal · 08</span>
+    <span class="page-kicker">06 — Timeline &amp; Deliverables</span>
+    <h2 class="page-title">Five weeks, start to launch.</h2>
+    <p class="page-sub">An indicative schedule — easy to compress or extend once scope is confirmed.</p>
+    <div class="timeline">
+      <div class="tl-step"><div class="tl-dot">1</div><h4>Discovery</h4><span>Week 1</span><p>Brand review, sitemap, content audit</p></div>
+      <div class="tl-step"><div class="tl-dot">2</div><h4>Design System</h4><span>Week 2</span><p>Wireframes, type &amp; colour tokens, components</p></div>
+      <div class="tl-step"><div class="tl-dot">3</div><h4>Build</h4><span>Week 3</span><p>Page assembly, interactions, responsive pass</p></div>
+      <div class="tl-step"><div class="tl-dot">4</div><h4>Review</h4><span>Week 4</span><p>Stakeholder feedback, content polish</p></div>
+      <div class="tl-step"><div class="tl-dot">5</div><h4>Launch</h4><span>Week 5</span><p>QA, hosting handoff, go-live</p></div>
+    </div>
+    <table class="deliv-table">
+      <tr><th>Phase</th><th>Key deliverable</th></tr>
+      <tr><td>Discovery</td><td>Sitemap + content plan (this document)</td></tr>
+      <tr><td>Design System</td><td>Wireframes, component library, visual direction</td></tr>
+      <tr><td>Build</td><td>Five fully built, responsive, interactive pages</td></tr>
+      <tr><td>Review</td><td>Revision round based on stakeholder feedback</td></tr>
+      <tr><td>Launch</td><td>Final QA pass and handoff for hosting</td></tr>
+    </table>
+  </section>
+
+  <!-- CLOSING -->
+  <section class="doc-page dark closing">
+    <div class="cover-floater" style="width:200px; bottom:-60px; right:-40px;"></div>
+    <div class="cover-brand">
+      <div class="logo-mark big"></div>
+      <div><b>GD+</b><small>Communications &amp; Events Agency</small></div>
+    </div>
+    <div>
+      <span class="page-kicker">07 — Next Steps</span>
+      <h2 class="closing-title">Let's turn this proposal into a live site.</h2>
+      <p class="cover-tagline">Sign off on direction, confirm the timeline, and we start Week 1 discovery.</p>
+      <div class="cta-chip">Ready when you are →</div>
+    </div>
+    <div class="contact-block">
+      <div>
+        <h4>Prepared by</h4>
+        <p>[Your Studio Name]<br>[email@yourstudio.com]</p>
+      </div>
+      <div>
+        <h4>Prepared for</h4>
+        <p>GD+ — A Gulf Dunes Division<br>Al Barsha Boutique Building, Dubai, UAE</p>
+      </div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>
