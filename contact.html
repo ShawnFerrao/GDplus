@@ -291,6 +291,19 @@ h3, .h3{
   padding:64px 0 96px;
   overflow:hidden;
 }
+.hero-watermark{
+  position:absolute;
+  font-weight:800;
+  font-size:min(48vw, 620px);
+  line-height:1;
+  color:var(--c-ink);
+  opacity:.035;
+  z-index:0;
+  top:-14%;
+  right:-3%;
+  pointer-events:none;
+  user-select:none;
+}
 .hero-inner{
   display:grid;
   gap:32px;
@@ -305,7 +318,7 @@ h3, .h3{
   opacity:0;
   transform:translateY(14px);
   transition:opacity .5s var(--ease), transform .5s var(--ease);
-  background:linear-gradient(90deg, var(--c-primary), var(--c-secondary));
+  background:linear-gradient(90deg, var(--c-secondary), var(--c-primary), var(--c-tertiary));
   -webkit-background-clip:text;
   background-clip:text;
   color:transparent;
@@ -471,7 +484,7 @@ h3, .h3{
   display:block;
   font-size:clamp(2.2rem,4vw,3.4rem);
   font-weight:800;
-  background:linear-gradient(90deg,var(--c-primary),var(--c-secondary));
+  background:linear-gradient(90deg, var(--c-secondary), var(--c-primary), var(--c-tertiary));
   -webkit-background-clip:text;
   background-clip:text;
   color:transparent;
@@ -912,6 +925,18 @@ h3, .h3{
 .news-form button:hover{ background:#ff6a3c; }
 .news-form.is-done span{ font-weight:700; color:var(--c-tertiary); }
 
+/* ---------- brand gradient text (blue -> orange -> yellow, fixed direction) ---------- */
+.text-gradient{
+  background:linear-gradient(90deg, var(--c-secondary), var(--c-primary), var(--c-tertiary));
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+.brand .text-gradient{
+  -webkit-background-clip:text;
+  background-clip:text;
+}
+
 /* utility */
 .text-center{ text-align:center; }
 .mt-8{ margin-top:8px; }
@@ -929,7 +954,7 @@ h3, .h3{
   <nav class="nav container">
     <a href="index.html" class="brand">
       <span class="logo-mark"></span>
-      <span>GD+<small>Communications &amp; Events Agency</small></span>
+      <span><span class="text-gradient">G</span>D+<small>Communications &amp; Events Agency</small></span>
     </a>
     <ul class="nav-links" data-nav-links>
       <li><a href="index.html">Home</a></li>
@@ -952,7 +977,7 @@ h3, .h3{
     <div class="container">
       <div class="crumbs"><a href="index.html">Home</a><span>/</span><em>Contact</em></div>
       <span class="eyebrow">Let's talk</span>
-      <h1 class="mt-16 max-680">Tell us about the idea keeping you up at night.</h1>
+      <h1 class="mt-16 max-680">Tell us about the idea <span class="text-gradient">keeping you up at night.</span></h1>
       <p class="lede mt-24 max-560">Fill in the form and someone from the team will get back to you within one business day. This form is a placeholder — connect it to your backend of choice before launch.</p>
     </div>
   </section>
@@ -989,7 +1014,7 @@ h3, .h3{
             <label for="message">Tell us more</label>
             <textarea id="message" name="message" placeholder="What are you dreaming up?" required></textarea>
           </div>
-          <button type="submit" class="btn btn-primary" data-magnetic>Send it over <span class="btn-arrow">→</span></button>
+          <button type="submit" class="btn btn-primary" data-magnetic>Send it over <span class="btn-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M10 7h7v7"/></svg></span></button>
         </form>
 
         <div class="form-success" data-form-success>
@@ -1074,7 +1099,7 @@ h3, .h3{
       <div class="footer-brand">
         <a href="index.html" class="brand" style="color:#fff">
           <span class="logo-mark"></span>
-          <span>GD+</span>
+          <span><span class="text-gradient">G</span>D+</span>
         </a>
         <p>People. Possibilities. Powered by design. GD+ is the communications &amp; events division of Gulf Dunes, based in Dubai, UAE.</p>
         <div class="footer-social">

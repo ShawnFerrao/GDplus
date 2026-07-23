@@ -291,6 +291,19 @@ h3, .h3{
   padding:64px 0 96px;
   overflow:hidden;
 }
+.hero-watermark{
+  position:absolute;
+  font-weight:800;
+  font-size:min(48vw, 620px);
+  line-height:1;
+  color:var(--c-ink);
+  opacity:.035;
+  z-index:0;
+  top:-14%;
+  right:-3%;
+  pointer-events:none;
+  user-select:none;
+}
 .hero-inner{
   display:grid;
   gap:32px;
@@ -305,7 +318,7 @@ h3, .h3{
   opacity:0;
   transform:translateY(14px);
   transition:opacity .5s var(--ease), transform .5s var(--ease);
-  background:linear-gradient(90deg, var(--c-primary), var(--c-secondary));
+  background:linear-gradient(90deg, var(--c-secondary), var(--c-primary), var(--c-tertiary));
   -webkit-background-clip:text;
   background-clip:text;
   color:transparent;
@@ -471,7 +484,7 @@ h3, .h3{
   display:block;
   font-size:clamp(2.2rem,4vw,3.4rem);
   font-weight:800;
-  background:linear-gradient(90deg,var(--c-primary),var(--c-secondary));
+  background:linear-gradient(90deg, var(--c-secondary), var(--c-primary), var(--c-tertiary));
   -webkit-background-clip:text;
   background-clip:text;
   color:transparent;
@@ -912,6 +925,18 @@ h3, .h3{
 .news-form button:hover{ background:#ff6a3c; }
 .news-form.is-done span{ font-weight:700; color:var(--c-tertiary); }
 
+/* ---------- brand gradient text (blue -> orange -> yellow, fixed direction) ---------- */
+.text-gradient{
+  background:linear-gradient(90deg, var(--c-secondary), var(--c-primary), var(--c-tertiary));
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+.brand .text-gradient{
+  -webkit-background-clip:text;
+  background-clip:text;
+}
+
 /* utility */
 .text-center{ text-align:center; }
 .mt-8{ margin-top:8px; }
@@ -929,7 +954,7 @@ h3, .h3{
   <nav class="nav container">
     <a href="index.html" class="brand">
       <span class="logo-mark"></span>
-      <span>GD+<small>Communications &amp; Events Agency</small></span>
+      <span><span class="text-gradient">G</span>D+<small>Communications &amp; Events Agency</small></span>
     </a>
     <ul class="nav-links" data-nav-links>
       <li><a href="index.html">Home</a></li>
@@ -952,7 +977,7 @@ h3, .h3{
     <div class="container">
       <div class="crumbs"><a href="index.html">Home</a><span>/</span><em>Services</em></div>
       <span class="eyebrow">What we do</span>
-      <h1 class="mt-16 max-680">Services built for moments that matter.</h1>
+      <h1 class="mt-16 max-680">Services built for <span class="text-gradient">moments that matter.</span></h1>
       <p class="lede mt-24 max-560">From the first strategy deck to the last strike of the stage lights — six disciplines, one accountable team.</p>
     </div>
   </section>
@@ -966,7 +991,7 @@ h3, .h3{
           <h3>Brand Communications</h3>
           <p class="body-text mt-8">Positioning, messaging and campaigns that give a brand something worth saying — and a reason for people to listen.</p>
         </div>
-        <span class="service-arrow">↗</span>
+        <span class="service-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M10 7h7v7"/></svg></span>
       </div>
       <div class="service-row" data-reveal>
         <span class="service-num">02</span>
@@ -974,7 +999,7 @@ h3, .h3{
           <h3>Event Production</h3>
           <p class="body-text mt-8">Concept, logistics, staging and show-calling for everything from a 50-guest dinner to a 5,000-person launch.</p>
         </div>
-        <span class="service-arrow">↗</span>
+        <span class="service-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M10 7h7v7"/></svg></span>
       </div>
       <div class="service-row" data-reveal>
         <span class="service-num">03</span>
@@ -982,7 +1007,7 @@ h3, .h3{
           <h3>Brand Activations</h3>
           <p class="body-text mt-8">Pop-ups, retail takeovers and experiential moments designed to be photographed, shared, and remembered.</p>
         </div>
-        <span class="service-arrow">↗</span>
+        <span class="service-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M10 7h7v7"/></svg></span>
       </div>
       <div class="service-row" data-reveal>
         <span class="service-num">04</span>
@@ -990,7 +1015,7 @@ h3, .h3{
           <h3>Content Studio</h3>
           <p class="body-text mt-8">Film, photography and social-first storytelling that keeps the moment alive long after the room empties.</p>
         </div>
-        <span class="service-arrow">↗</span>
+        <span class="service-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M10 7h7v7"/></svg></span>
       </div>
       <div class="service-row" data-reveal>
         <span class="service-num">05</span>
@@ -998,7 +1023,7 @@ h3, .h3{
           <h3>Digital Experiences</h3>
           <p class="body-text mt-8">Websites, apps and interactive installations that extend a live moment into something people can revisit.</p>
         </div>
-        <span class="service-arrow">↗</span>
+        <span class="service-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M10 7h7v7"/></svg></span>
       </div>
       <div class="service-row" data-reveal>
         <span class="service-num">06</span>
@@ -1006,7 +1031,7 @@ h3, .h3{
           <h3>Strategy &amp; Planning</h3>
           <p class="body-text mt-8">Insight-led roadmaps that connect people, ideas and possibilities into a plan the whole business can rally behind.</p>
         </div>
-        <span class="service-arrow">↗</span>
+        <span class="service-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M10 7h7v7"/></svg></span>
       </div>
     </div>
   </section>
@@ -1017,7 +1042,7 @@ h3, .h3{
       <div class="section-head" data-reveal>
         <div>
           <span class="eyebrow">How a project runs</span>
-          <h2>Four stages. No surprises.</h2>
+          <h2>Four stages. <span class="text-gradient">No surprises.</span></h2>
         </div>
       </div>
       <div class="process">
@@ -1082,9 +1107,9 @@ h3, .h3{
       <div class="cta-banner" data-reveal>
         <div class="floater f-orange" style="width:90px;top:-10%;right:8%;opacity:.25"></div>
         <span class="eyebrow" style="color:var(--c-tertiary)">Ready when you are</span>
-        <h2 class="mt-16">Tell us the brief.<br>We'll bring the rest.</h2>
+        <h2 class="mt-16">Tell us the brief.<br><span class="text-gradient">We'll bring the rest.</span></h2>
         <div class="btn-row">
-          <a href="contact.html" class="btn btn-primary" data-magnetic>Start a project <span class="btn-arrow">→</span></a>
+          <a href="contact.html" class="btn btn-primary" data-magnetic>Start a project <span class="btn-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M10 7h7v7"/></svg></span></a>
           <a href="case-studies.html" class="btn btn-ghost on-dark" data-magnetic>See our work</a>
         </div>
       </div>
@@ -1115,7 +1140,7 @@ h3, .h3{
       <div class="footer-brand">
         <a href="index.html" class="brand" style="color:#fff">
           <span class="logo-mark"></span>
-          <span>GD+</span>
+          <span><span class="text-gradient">G</span>D+</span>
         </a>
         <p>People. Possibilities. Powered by design. GD+ is the communications &amp; events division of Gulf Dunes, based in Dubai, UAE.</p>
         <div class="footer-social">

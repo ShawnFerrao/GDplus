@@ -291,6 +291,19 @@ h3, .h3{
   padding:64px 0 96px;
   overflow:hidden;
 }
+.hero-watermark{
+  position:absolute;
+  font-weight:800;
+  font-size:min(48vw, 620px);
+  line-height:1;
+  color:var(--c-ink);
+  opacity:.035;
+  z-index:0;
+  top:-14%;
+  right:-3%;
+  pointer-events:none;
+  user-select:none;
+}
 .hero-inner{
   display:grid;
   gap:32px;
@@ -305,7 +318,7 @@ h3, .h3{
   opacity:0;
   transform:translateY(14px);
   transition:opacity .5s var(--ease), transform .5s var(--ease);
-  background:linear-gradient(90deg, var(--c-primary), var(--c-secondary));
+  background:linear-gradient(90deg, var(--c-secondary), var(--c-primary), var(--c-tertiary));
   -webkit-background-clip:text;
   background-clip:text;
   color:transparent;
@@ -471,7 +484,7 @@ h3, .h3{
   display:block;
   font-size:clamp(2.2rem,4vw,3.4rem);
   font-weight:800;
-  background:linear-gradient(90deg,var(--c-primary),var(--c-secondary));
+  background:linear-gradient(90deg, var(--c-secondary), var(--c-primary), var(--c-tertiary));
   -webkit-background-clip:text;
   background-clip:text;
   color:transparent;
@@ -912,6 +925,18 @@ h3, .h3{
 .news-form button:hover{ background:#ff6a3c; }
 .news-form.is-done span{ font-weight:700; color:var(--c-tertiary); }
 
+/* ---------- brand gradient text (blue -> orange -> yellow, fixed direction) ---------- */
+.text-gradient{
+  background:linear-gradient(90deg, var(--c-secondary), var(--c-primary), var(--c-tertiary));
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+.brand .text-gradient{
+  -webkit-background-clip:text;
+  background-clip:text;
+}
+
 /* utility */
 .text-center{ text-align:center; }
 .mt-8{ margin-top:8px; }
@@ -929,7 +954,7 @@ h3, .h3{
   <nav class="nav container">
     <a href="index.html" class="brand">
       <span class="logo-mark"></span>
-      <span>GD+<small>Communications &amp; Events Agency</small></span>
+      <span><span class="text-gradient">G</span>D+<small>Communications &amp; Events Agency</small></span>
     </a>
     <ul class="nav-links" data-nav-links>
       <li><a href="index.html" class="active">Home</a></li>
@@ -949,6 +974,7 @@ h3, .h3{
 
   <!-- HERO -->
   <section class="hero">
+    <div class="hero-watermark" aria-hidden="true">G</div>
     <div class="floater f-blue" style="width:70px;top:12%;left:4%;"></div>
     <div class="floater f-gold" style="width:44px;top:70%;left:9%;animation-delay:-3s"></div>
     <div class="container hero-inner">
@@ -964,7 +990,7 @@ h3, .h3{
         </h1>
         <p class="lede mt-24 max-560">GD+ is the studio behind the campaigns, activations and live experiences that make people stop scrolling and start showing up. People, ideas and possibilities — brought together, on purpose.</p>
         <div class="btn-row mt-40" style="display:flex;gap:14px;flex-wrap:wrap;">
-          <a href="contact.html" class="btn btn-primary" data-magnetic>Start a project <span class="btn-arrow">→</span></a>
+          <a href="contact.html" class="btn btn-primary" data-magnetic>Start a project <span class="btn-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M10 7h7v7"/></svg></span></a>
           <a href="case-studies.html" class="btn btn-ghost" data-magnetic>See our work</a>
         </div>
       </div>
@@ -991,7 +1017,7 @@ h3, .h3{
       <div class="section-head" data-reveal>
         <div>
           <span class="eyebrow">How we work</span>
-          <h2>Three moves. One studio.</h2>
+          <h2>Three moves. <span class="text-gradient">One studio.</span></h2>
         </div>
         <p class="lede">Every project — big launch or quiet campaign — moves through the same rhythm.</p>
       </div>
@@ -1041,7 +1067,7 @@ h3, .h3{
     <div class="container">
       <div class="section-head center" data-reveal>
         <span class="eyebrow">Selected work</span>
-        <h2>Solve harder briefs, together. Here's how.</h2>
+        <h2>Solve harder briefs, together. <span class="text-gradient">Here's how.</span></h2>
         <p class="lede">Three ways a GD+ project tends to show up in the world.</p>
       </div>
       <div class="grid-3">
@@ -1108,9 +1134,9 @@ h3, .h3{
       <div class="cta-banner" data-reveal>
         <div class="floater f-orange" style="width:90px;top:-10%;right:8%;opacity:.25"></div>
         <span class="eyebrow" style="color:var(--c-tertiary)">Let's make something</span>
-        <h2 class="mt-16">Got an idea worth<br>throwing a party for?</h2>
+        <h2 class="mt-16">Got an idea worth<br><span class="text-gradient">throwing a party for?</span></h2>
         <div class="btn-row">
-          <a href="contact.html" class="btn btn-primary" data-magnetic>Start a project <span class="btn-arrow">→</span></a>
+          <a href="contact.html" class="btn btn-primary" data-magnetic>Start a project <span class="btn-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M10 7h7v7"/></svg></span></a>
           <a href="services.html" class="btn btn-ghost on-dark" data-magnetic>Explore services</a>
         </div>
       </div>
@@ -1141,7 +1167,7 @@ h3, .h3{
       <div class="footer-brand">
         <a href="index.html" class="brand" style="color:#fff">
           <span class="logo-mark"></span>
-          <span>GD+</span>
+          <span><span class="text-gradient">G</span>D+</span>
         </a>
         <p>People. Possibilities. Powered by design. GD+ is the communications &amp; events division of Gulf Dunes, based in Dubai, UAE.</p>
         <div class="footer-social">
