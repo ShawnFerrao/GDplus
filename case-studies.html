@@ -314,9 +314,10 @@ h3, .h3{
 
 .hero-scene{
   position:relative;
+  width:100%;
   aspect-ratio:1/1;
   max-width:420px;
-  justify-self:center;
+  margin:0 auto;
 }
 .hero-blob{
   position:absolute;
@@ -785,6 +786,132 @@ h3, .h3{
   border-radius:2px;
 }
 
+/* ---------- glow preview cards ---------- */
+.glow-card{
+  position:relative;
+  padding:28px;
+  border-radius:var(--r-lg);
+  background:var(--c-paper-alt);
+  border:1px solid var(--c-line);
+  overflow:hidden;
+}
+.glow-card::before{
+  content:'';
+  position:absolute;
+  width:280px;height:280px;
+  border-radius:50%;
+  filter:blur(64px);
+  opacity:.5;
+  z-index:0;
+}
+.glow-card.glow-orange::before{ background:var(--c-primary); top:-80px; left:-80px; }
+.glow-card.glow-blue::before{ background:var(--c-secondary); top:-80px; right:-60px; }
+.glow-card.glow-gold::before{ background:var(--c-tertiary); bottom:-90px; left:15%; }
+.glow-frame{
+  position:relative;
+  z-index:1;
+  border-radius:var(--r-md);
+  background:var(--c-paper-alt);
+  border:1px solid var(--c-line);
+  padding:12px 12px 0;
+  box-shadow:0 24px 50px -26px rgba(28,25,23,.3);
+  margin-bottom:20px;
+  overflow:hidden;
+}
+.glow-frame-dots{ display:flex; gap:6px; padding-bottom:12px; }
+.glow-frame-dots span{ width:8px;height:8px;border-radius:50%; background:var(--c-line); }
+.glow-frame-body{
+  border-radius:var(--r-sm) var(--r-sm) 0 0;
+  aspect-ratio:16/10;
+  display:flex; align-items:center; justify-content:center;
+}
+.glow-card-body{ position:relative; z-index:1; }
+.glow-card h3{ margin-bottom:8px; }
+
+/* ---------- mini pill button (in-card CTA) ---------- */
+.btn-mini{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:9px 16px;
+  border-radius:var(--r-pill);
+  background:var(--c-ink);
+  color:#fff;
+  font-weight:700;
+  font-size:.78rem;
+  margin-top:18px;
+  transition:transform .3s var(--ease), background .25s;
+}
+.btn-mini:hover{ background:var(--c-primary); transform:translateX(2px); }
+
+/* ---------- floating sticker badges ---------- */
+.sticker{
+  position:absolute;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:10px 16px;
+  border-radius:var(--r-pill);
+  background:var(--c-paper-alt);
+  border:1px solid var(--c-line);
+  box-shadow:0 16px 32px -18px rgba(28,25,23,.35);
+  font-weight:700;
+  font-size:.8rem;
+  z-index:2;
+  animation:stickerFloat 7s ease-in-out infinite;
+  white-space:nowrap;
+}
+.sticker b{ color:var(--c-primary); }
+.sticker.s2{ animation-delay:-2.5s; }
+@keyframes stickerFloat{
+  0%,100%{ transform:translateY(0) rotate(-2deg); }
+  50%{ transform:translateY(-10px) rotate(1deg); }
+}
+@media (max-width:760px){ .sticker{ display:none; } }
+
+/* ---------- centered section head variant ---------- */
+.section-head.center{ flex-direction:column; align-items:center; text-align:center; }
+.section-head.center .lede{ max-width:560px; }
+
+/* ---------- newsletter strip ---------- */
+.news-strip{
+  background:var(--c-ink);
+  border-radius:var(--r-lg);
+  padding:44px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:24px;
+  align-items:center;
+  justify-content:space-between;
+  color:#fff;
+}
+.news-strip h3{ max-width:360px; }
+.news-strip p{ color:#cfc6bd; margin-top:8px; }
+.news-form{ display:flex; gap:10px; flex-wrap:wrap; }
+.news-form input{
+  padding:14px 18px;
+  border-radius:var(--r-pill);
+  border:1.5px solid rgba(255,255,255,.2);
+  background:rgba(255,255,255,.06);
+  color:#fff;
+  min-width:240px;
+  font-family:inherit;
+  font-size:.9rem;
+}
+.news-form input::placeholder{ color:#a89f95; }
+.news-form input:focus{ outline:none; border-color:var(--c-primary); }
+.news-form button{
+  padding:14px 26px;
+  border-radius:var(--r-pill);
+  background:var(--c-primary);
+  color:#fff;
+  font-weight:700;
+  border:none;
+  font-size:.9rem;
+}
+.news-form button:hover{ background:#ff6a3c; }
+.news-form.is-done span{ font-weight:700; color:var(--c-tertiary); }
+
 /* utility */
 .text-center{ text-align:center; }
 .mt-8{ margin-top:8px; }
@@ -909,6 +1036,22 @@ h3, .h3{
   </section>
 
 </main>
+
+  <section class="section" style="padding-top:0;">
+    <div class="container">
+      <div class="news-strip" data-reveal>
+        <div>
+          <span class="eyebrow" style="color:var(--c-tertiary)">Stay in the loop</span>
+          <h3 class="h3 mt-16">Occasional notes on what we're building.</h3>
+          <p>No spam, just the odd campaign teaser or event invite.</p>
+        </div>
+        <form class="news-form" data-news-form>
+          <input type="email" placeholder="you@company.com" required aria-label="Email address">
+          <button type="submit">Sign up</button>
+        </form>
+      </div>
+    </div>
+  </section>
 
 <footer class="site-footer">
   <div class="container">
@@ -1088,6 +1231,15 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
+
+  /* ---- newsletter strip (dummy submit) ---- */
+  document.querySelectorAll('[data-news-form]').forEach((newsForm) => {
+    newsForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      newsForm.classList.add('is-done');
+      newsForm.innerHTML = '<span>You\'re on the list — thanks for signing up.</span>';
+    });
+  });
 
   /* ---- contact form (dummy submit + confetti) ---- */
   const form = document.querySelector('[data-contact-form]');
