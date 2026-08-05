@@ -381,6 +381,20 @@ h3, .h3{
   object-fit:cover;
   z-index:2;
 }
+.hero-yt-wrap{
+  position:absolute; inset:0;
+  z-index:2;
+  overflow:hidden;
+  pointer-events:none;
+  background:var(--c-dark);
+}
+.hero-yt-wrap iframe{
+  position:absolute; top:50%; left:50%;
+  width:177.78vh; height:100vh;
+  min-width:100%; min-height:56.25vw;
+  transform:translate(-50%,-50%);
+  border:0;
+}
 .hero-fallback-bg{
   position:absolute; inset:-10%;
   background:linear-gradient(135deg, var(--c-secondary), var(--c-primary) 55%, var(--c-tertiary));
@@ -439,11 +453,18 @@ h3, .h3{
   background:rgba(255,255,255,.14);
   border:1px solid rgba(255,255,255,.35);
   color:#fff;
+  text-decoration:none;
   padding:10px 18px 10px 10px;
   border-radius:var(--r-pill);
   font-weight:700;
   font-size:.82rem;
   backdrop-filter:blur(10px);
+  cursor:pointer;
+  transition:background .2s ease, border-color .2s ease;
+}
+.hero-play:hover{
+  background:rgba(255,255,255,.24);
+  border-color:rgba(255,255,255,.5);
 }
 .hero-play .dot{
   width:30px; height:30px; border-radius:50%;
@@ -1193,6 +1214,12 @@ h3, .h3{
           <source src="assets/video/gdplus-reel.mp4" type="video/mp4">
         </video>
       -->
+      <div class="hero-yt-wrap" aria-hidden="true">
+        <iframe src="https://www.youtube.com/embed/CuVfoKF3Sro?autoplay=1&mute=1&loop=1&playlist=CuVfoKF3Sro&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3&disablekb=1"
+          title="" frameborder="0"
+          allow="autoplay; encrypted-media"
+          referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      </div>
       <div class="hero-fallback-bg"></div>
       <div class="hero-fallback-scene" aria-hidden="true">
         <svg viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1218,10 +1245,10 @@ h3, .h3{
     <div class="hero-watermark on-video" aria-hidden="true">G</div>
     <div class="sticker" style="top:16%;left:6%;">✦ <span>Dubai HQ</span></div>
     <div class="sticker s2" style="top:30%;right:7%;"><b>120+</b> <span>events shipped</span></div>
-    <div class="hero-play" style="bottom:14%;right:7%;" data-magnetic>
+    <a class="hero-play" href="https://www.youtube.com/watch?v=CuVfoKF3Sro" target="_blank" rel="noopener" style="bottom:14%;right:7%;" data-magnetic>
       <span class="dot"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
       Watch the reel
-    </div>
+    </a>
 
     <div class="container hero-inner">
       <span class="eyebrow">Dubai · Communications &amp; Events Studio</span>
