@@ -90,10 +90,7 @@ ul{ margin:0; padding:0; list-style:none; }
 .doc-page.dark .page-sub{ color:#cfc6bd; }
 
 /* ---------- logo mark ---------- */
-.logo-mark{ position:relative; width:30px; height:30px; flex:none; }
-.logo-mark::before,.logo-mark::after{ content:''; position:absolute; border-radius:var(--r-pill); background:linear-gradient(135deg, var(--c-secondary), var(--c-primary) 55%, var(--c-tertiary)); }
-.logo-mark::before{ left:38%; right:38%; top:0; bottom:0; }
-.logo-mark::after{ top:38%; bottom:38%; left:0; right:0; }
+.logo-mark{ width:30px; height:30px; flex:none; display:block; object-fit:contain; }
 .logo-mark.big{ width:64px; height:64px; }
 
 /* ---------- cover ---------- */
@@ -272,7 +269,7 @@ ul{ margin:0; padding:0; list-style:none; }
     <div class="cover-floater" style="width:220px; top:-60px; right:-60px;"></div>
     <div class="cover-floater" style="width:120px; bottom:10%; left:-40px;"></div>
     <div class="cover-brand">
-      <div class="logo-mark big"></div>
+      <img class="logo-mark big" src="data:image/png;base64,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" alt="GD+">
       <div>
         <b>GD+</b>
         <small>Communications &amp; Events Agency</small>
@@ -665,7 +662,7 @@ ul{ margin:0; padding:0; list-style:none; }
   <section class="doc-page dark closing">
     <div class="cover-floater" style="width:200px; bottom:-60px; right:-40px;"></div>
     <div class="cover-brand">
-      <div class="logo-mark big"></div>
+      <img class="logo-mark big" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAABICAYAAAC6L9h5AAAACXBIWXMAAAsSAAALEgHS3X78AAAFsElEQVR4nO2cz2/bZBjHn21haGWotSibxAQrEhdrFTObhpAisSDBiR26A5FygXLoDamZuHBiLX9Be+BCDms5UMkXOvXEATUFGYQ2hCuiWhMCWqodsq44aZe0XZMWPc7jkR+v3deJ/brp/JGiNq7z+vW3z/u87/s8j3Nsf38fwiSVyfUBwBAAKPSyKQBAFgBmZ0YGl8PsY2gikThpevUecPoCAIzNjAxmBXWvgVBESmVyCbQQDnGamZwZGUwH38NGjou+YCqTGwaA+TYEQkZTmdxUAN1yRaglpTI59Dm/+dDU9MzI4LAP7XAhTCTyQToAnPepyeszI4OzPrXlisjhlvZRIGTCx7ZcESmS38PjfCqTG/K5TSZCRCJf5KcV2RwdkQAgEVC7Csc5HSNKpL6A2r0YULsNCF8ndSORSBxEInEQicRBJBIHkUgcRCJxEInEQSQSB5FIHEQicSBEpJ7j5ZiI6wSFkM6PvfrF8+u7/atz6++/vFSSQ7nRTuAP32pKXwehCQy4fYS/lPd6zF823qx+9+97/SvbvoSY3mnzc8u8+Tx3kTQF40DDFNxqJ7vhSqn6XHFu/dreT8W3pLXdF/1unpfblAB1zMKwRdKUAQDAD10V1VOzIuX1RxdP+GhhnjhVKa1eyv88+slY+tvmz7WKpCnDFGT33XJ4wSF5d/NS+c7GlXN3Ny8Heq0Xttbgg3u38q+v3TlLhyYl1WhIgDaKpCk4rFqUDJPKfmzr7+2Bh/Nmoj9XunDKr2HJEKeeaUk1niQu/hepNsR0FwsqUmpaVPFCgjXc0cqWSvLjhcLbZ5fKMpSrPZ4aPUCcem5IqmGlrepFyrr4oHFrCMb1gqcedQqHb0Rf9nvpQgWH5sr2K+BkaR7EsUGjUCTVWK6JVJvF5h1O/hjiuvD8ewOaMmUvIQ4CLe3+zkuPft28fPqPrdek/MN+r+LUYw07WySnToxDXB/z837bRlN0L9mRvY19KP1QfVD5s3oGAPIA8BgATgKAF7GKkmr02StuVl6sKDKVzEHaxdqfgOKUFyr53b/2UIwzdJwlzBYAPKBdR8zhnF4zKSdsS2KtKKchrgur3OBCUwpOE0uTOJ1iAsAG7W2/iZE/YhFqCZ4DerMTbxLHD4EQiV7IdtfuzgMSh0kM4noWNOa+dSDIC7eLSHFsbEsqMsa6kIoNL5S/rzyzk6uCKHEI3Q66sSrGekFTDsf0T+zkqrshXDZri+S0WLxJG96nlduSahRqIqFfqtVKs7hlWVQt6Pa0Ya0T62e3tEtl7E3r75ritsEtWMM2rh/GpUM74JbEKq5vDpWMAsCnOIm0Wb5XtFbvcV0PotdmUnbbhPvJIt4HDjVoyZbE9UkA+JwhEK5AVwDgPv10ojeAAlLRNAjUKlJNKHTib9DJNhIJd87BwvIk3iptIruVLwHg3XqBwDGlVBsuCs1swxwmbq9bcLh9FaBApz2ci/+4bcZxvOdKU5s/AsBnkmrcYzXEl1JqTCe57fWyQTpuB5803kZTBdoHFiTVONB/hv68mxdYIkmqcSzo60a1ABxEInEQicSBsHiSmZQnaKZEpznE4zAPC0JEMpMybnlG6W0vPYDcNXvBsJ4twQC7kIdn/CBMnxRZ0lEiEomDbhcpL+Ii3SbSCcq8Fum90GxJt/AsFqXRSxhhWlI7eb0rAfTjQMIUyVME00zKrPMXGcd8R5RIrG+ruepw4y2YSRnXVKwcoJCtjRCRKOtQZPxpwkzK19w+SwJlHcLGR+5rOJprnXCWwozsHG5+zaTc4qPI0pyKt1Yk1RAikrDIJFnEP5SuOukwQy1SlAAoXOxWJn39yIkENaE+tIrDOqehhDhohM5ukmp8bRWqdsYiZZuFIXwJIKnGVAdCTTcnDkUQWraE4kkTnGlrTHymRfmgZkJPKZFYWDCG+bx6Z41VLpjDmw1LHAsA+A/65ivi49c5PQAAAABJRU5ErkJggg==" alt="GD+">
       <div><b>GD+</b><small>Communications &amp; Events Agency</small></div>
     </div>
     <div>
