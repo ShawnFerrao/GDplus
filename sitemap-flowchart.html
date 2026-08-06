@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GD+ Website — Sitemap Flowchart</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%23ec5628'/%3E%3Crect x='38' y='14' width='24' height='72' rx='12' fill='white'/%3E%3Crect x='14' y='38' width='72' height='24' rx='12' fill='white'/%3E%3C/svg%3E">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,600&display=swap');
+
+:root{
+  --c-primary: #ec5628;
+  --c-primary-ink: #a83c17;
+  --c-primary-light: #ffe3d6;
+  --c-secondary: #5799d2;
+  --c-secondary-ink: #2f6699;
+  --c-secondary-light: #dcecfa;
+  --c-tertiary: #ffcc02;
+  --c-tertiary-ink: #8a6a00;
+  --c-tertiary-light: #fff3c4;
+  --c-ink: #1c1917;
+  --c-ink-soft: #4a4441;
+  --c-paper: #fdf7f2;
+  --c-paper-alt: #ffffff;
+  --c-surface: #f5ece4;
+  --c-line: #d8c9bc;
+  --c-dark: #201d1a;
+  --r-sm: 10px;
+  --r-md: 16px;
+  --r-pill: 999px;
+  --font: 'Public Sans', system-ui, sans-serif;
+}
+*,*::before,*::after{ box-sizing:border-box; }
+body{
+  margin:0;
+  font-family:var(--font);
+  background:#8d857c;
+  color:var(--c-ink);
+  -webkit-font-smoothing:antialiased;
+}
+img,svg{ display:block; max-width:100%; }
+a{ color:inherit; }
+h1,h2,h3,h4,p{ margin:0; }
+ul{ margin:0; padding:0; list-style:none; }
+
+/* ---------- doc chrome ---------- */
+.doc-topbar{
+  position:sticky; top:0; z-index:50;
+  background:var(--c-ink); color:#fff;
+  padding:12px 20px;
+  display:flex; align-items:center; justify-content:space-between;
+  font-size:.82rem; font-weight:600;
+}
+.doc-topbar span{ color:#a89f95; }
+.doc-topbar button{
+  font-family:inherit; cursor:pointer;
+  background:var(--c-primary); color:#fff; border:none;
+  padding:9px 18px; border-radius:var(--r-pill); font-weight:700; font-size:.82rem;
+}
+.doc-wrap{ padding:48px 20px 100px; display:flex; justify-content:center; }
+.sheet{
+  width:100%;
+  max-width:1320px;
+  background:var(--c-paper-alt);
+  border-radius:28px;
+  padding:56px 48px 64px;
+  box-shadow:0 30px 70px -30px rgba(0,0,0,.5);
+}
+
+.eyebrow{
+  display:inline-flex; align-items:center; gap:8px;
+  font-size:12px; font-weight:800; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--c-primary-ink);
+}
+.eyebrow::before{ content:''; width:8px; height:8px; border-radius:50%; background:var(--c-primary); }
+.title{ font-size:clamp(1.8rem,3.6vw,2.6rem); font-weight:800; letter-spacing:-.01em; margin-top:14px; max-width:640px; }
+.sub{ font-size:1.02rem; color:var(--c-ink-soft); margin-top:14px; max-width:640px; line-height:1.6; }
+
+/* ---------- legend ---------- */
+.legend{ display:flex; flex-wrap:wrap; gap:18px; margin-top:28px; padding-top:24px; border-top:1px solid var(--c-line); }
+.legend-item{ display:flex; align-items:center; gap:8px; font-size:.8rem; font-weight:700; color:var(--c-ink-soft); }
+.legend-swatch{ width:14px; height:14px; border-radius:4px; flex:none; }
+
+/* ============ FLOWCHART ============ */
+.flow{ margin-top:56px; }
+
+.flow-root-row{ display:flex; justify-content:center; }
+.node{
+  display:inline-flex; flex-direction:column; align-items:center; justify-content:center;
+  padding:16px 26px;
+  border-radius:var(--r-md);
+  font-weight:800; font-size:.95rem;
+  text-align:center;
+  border:1.5px solid transparent;
+  position:relative;
+  z-index:2;
+}
+.node small{
+  display:block; font-weight:600; font-size:.66rem; letter-spacing:.06em; text-transform:uppercase;
+  margin-top:2px; opacity:.75;
+}
+.node-root{ background:var(--c-ink); color:#fff; padding:20px 40px; font-size:1.05rem; }
+
+/* vertical connector from root down to the branch bar */
+.trunk{ width:2px; height:36px; background:var(--c-line); margin:0 auto; }
+
+/* horizontal spine + drop lines to each branch */
+.branch-row{
+  position:relative;
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:22px 18px;
+  padding-top:36px;
+}
+.branch-row::before{
+  content:'';
+  position:absolute; top:0;
+  left:50px; right:50px;
+  height:2px;
+  background:var(--c-line);
+}
+.branch{ position:relative; padding-top:36px; width:158px; flex:none; }
+.branch::before{
+  content:'';
+  position:absolute; top:0; left:50%;
+  width:2px; height:36px;
+  background:var(--c-line);
+  transform:translateX(-50%);
+}
+.branch .node{ width:100%; background:var(--c-surface); color:var(--c-ink); border-color:var(--c-line); }
+.branch .node.tone-a{ background:var(--c-primary-light); color:var(--c-primary-ink); }
+.branch .node.tone-b{ background:var(--c-secondary-light); color:var(--c-secondary-ink); }
+.branch .node.tone-c{ background:var(--c-tertiary-light); color:var(--c-tertiary-ink); }
+
+.children{ margin-top:14px; display:flex; flex-direction:column; align-items:center; gap:0; }
+.children .stem{ width:2px; height:14px; background:var(--c-line); }
+.children ul{ display:flex; flex-direction:column; gap:8px; width:100%; }
+.children li{
+  background:var(--c-paper-alt);
+  border:1.5px dashed var(--c-line);
+  border-radius:var(--r-sm);
+  padding:8px 10px;
+  font-size:.72rem;
+  font-weight:700;
+  color:var(--c-ink-soft);
+  text-align:center;
+}
+
+.note{
+  margin-top:56px;
+  padding-top:24px;
+  border-top:1px solid var(--c-line);
+  font-size:.8rem;
+  color:var(--c-ink-soft);
+  line-height:1.7;
+}
+.note strong{ color:var(--c-ink); }
+
+@media print{
+  body{ background:#fff; }
+  .doc-topbar{ display:none; }
+  .doc-wrap{ padding:0; }
+  .sheet{ box-shadow:none; border-radius:0; max-width:100%; }
+  @page{ size:A3 landscape; margin:12mm; }
+}
+
+@media (max-width:900px){
+  .branch-row::before{ display:none; }
+  .branch::before{ height:20px; }
+  .branch-row{ gap:32px 14px; }
+  .branch{ width:44%; }
+}
+@media (max-width:560px){
+  .branch{ width:100%; }
+}
+</style>
+</head>
+<body>
+
+<div class="doc-topbar">
+  <span>GD+ Website — Sitemap Flowchart · editable draft</span>
+  <button onclick="window.print()">Print / Save as PDF</button>
+</div>
+
+<div class="doc-wrap">
+  <div class="sheet">
+
+    <span class="eyebrow">Information architecture</span>
+    <h1 class="title">22 pages, mapped as a flow.</h1>
+    <p class="sub">A visual companion to the written sitemap in the proposal — same 22 pages, shown here as parent/child relationships so the navigation structure is easy to trace at a glance.</p>
+
+    <div class="legend">
+      <div class="legend-item"><span class="legend-swatch" style="background:var(--c-ink);"></span>Home</div>
+      <div class="legend-item"><span class="legend-swatch" style="background:var(--c-primary-light);"></span>Company &amp; sector pages</div>
+      <div class="legend-item"><span class="legend-swatch" style="background:var(--c-secondary-light);"></span>Work &amp; insights (templates)</div>
+      <div class="legend-item"><span class="legend-swatch" style="background:var(--c-tertiary-light);"></span>Contact &amp; utility</div>
+    </div>
+
+    <div class="flow">
+      <div class="flow-root-row">
+        <div class="node node-root">Home<small>gdplus.agency</small></div>
+      </div>
+      <div class="trunk"></div>
+
+      <div class="branch-row">
+
+        <div class="branch">
+          <div class="node tone-a">About</div>
+          <div class="children">
+            <div class="stem"></div>
+            <ul>
+              <li>Our Team</li>
+              <li>Careers</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="branch">
+          <div class="node tone-a">For Corporates</div>
+        </div>
+
+        <div class="branch">
+          <div class="node tone-a">For Associations</div>
+        </div>
+
+        <div class="branch">
+          <div class="node tone-a">Services</div>
+          <div class="children">
+            <div class="stem"></div>
+            <ul>
+              <li>Brand Communications</li>
+              <li>Event Production</li>
+              <li>Brand Activations</li>
+              <li>Content Studio</li>
+              <li>Digital Experiences</li>
+              <li>Strategy &amp; Planning</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="branch">
+          <div class="node tone-b">Case Studies</div>
+          <div class="children">
+            <div class="stem"></div>
+            <ul>
+              <li>Case Study (Template)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="branch">
+          <div class="node tone-b">Blog</div>
+          <div class="children">
+            <div class="stem"></div>
+            <ul>
+              <li>Blog Post (Template)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="branch">
+          <div class="node tone-c">Contact</div>
+          <div class="children">
+            <div class="stem"></div>
+            <ul>
+              <li>FAQs</li>
+              <li>Privacy Policy</li>
+              <li>Terms of Service</li>
+              <li>Thank You (Confirmation)</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <p class="note">
+      <strong>Case Study</strong> and <strong>Blog Post</strong> are reusable WordPress templates, not individual pages — every new case study or article reuses the same structure, so this map (and the 22-page count) stays accurate as content grows. <strong>For Corporates</strong> and <strong>For Associations</strong> are dedicated sector landing pages, matching how GD+ already segments its audience on the live preview site.
+    </p>
+
+  </div>
+</div>
+
+</body>
+</html>
