@@ -898,6 +898,61 @@ h3, .h3{
 .mini-mark::before{ left:38%; right:38%; top:0; bottom:0; }
 .mini-mark::after{ top:38%; bottom:38%; left:0; right:0; }
 
+/* ---------- idle contact popup ---------- */
+.idle-popup-backdrop{
+  position:fixed;
+  inset:0;
+  z-index:9990;
+  background:rgba(28,25,23,.5);
+  backdrop-filter:blur(4px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .35s var(--ease);
+}
+.idle-popup-backdrop.is-visible{ opacity:1; pointer-events:auto; }
+.idle-popup{
+  position:relative;
+  width:100%;
+  max-width:440px;
+  max-height:90vh;
+  overflow-y:auto;
+  background:var(--c-paper-alt);
+  border-radius:var(--r-lg);
+  padding:44px;
+  box-shadow:0 40px 90px -30px rgba(28,25,23,.5);
+  opacity:0;
+  transform:translateY(24px) scale(.92) rotate(-1deg);
+}
+.idle-popup-backdrop.is-visible .idle-popup{
+  animation:idlePopIn .6s cubic-bezier(.34,1.56,.64,1) forwards;
+}
+@keyframes idlePopIn{
+  0%{ opacity:0; transform:translateY(24px) scale(.92) rotate(-1deg); }
+  60%{ opacity:1; transform:translateY(-6px) scale(1.02) rotate(.5deg); }
+  100%{ opacity:1; transform:translateY(0) scale(1) rotate(0deg); }
+}
+.idle-popup-close{
+  position:absolute;
+  top:18px; right:18px;
+  width:36px; height:36px;
+  border-radius:50%;
+  border:1px solid var(--c-line);
+  background:var(--c-paper-alt);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--c-ink);
+  transition:background .25s, transform .35s var(--ease), border-color .25s;
+}
+.idle-popup-close:hover{ background:var(--c-ink); border-color:var(--c-ink); color:#fff; transform:rotate(90deg); }
+.idle-popup .field{ margin-bottom:16px; }
+.idle-popup .field textarea{ resize:vertical; }
+.idle-popup .form-success{ padding:20px 0; background:transparent; }
+
 /* ---------- custom cursor ---------- */
 .cursor-dot{
   position:fixed;

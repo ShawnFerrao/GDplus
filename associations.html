@@ -898,6 +898,61 @@ h3, .h3{
 .mini-mark::before{ left:38%; right:38%; top:0; bottom:0; }
 .mini-mark::after{ top:38%; bottom:38%; left:0; right:0; }
 
+/* ---------- idle contact popup ---------- */
+.idle-popup-backdrop{
+  position:fixed;
+  inset:0;
+  z-index:9990;
+  background:rgba(28,25,23,.5);
+  backdrop-filter:blur(4px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .35s var(--ease);
+}
+.idle-popup-backdrop.is-visible{ opacity:1; pointer-events:auto; }
+.idle-popup{
+  position:relative;
+  width:100%;
+  max-width:440px;
+  max-height:90vh;
+  overflow-y:auto;
+  background:var(--c-paper-alt);
+  border-radius:var(--r-lg);
+  padding:44px;
+  box-shadow:0 40px 90px -30px rgba(28,25,23,.5);
+  opacity:0;
+  transform:translateY(24px) scale(.92) rotate(-1deg);
+}
+.idle-popup-backdrop.is-visible .idle-popup{
+  animation:idlePopIn .6s cubic-bezier(.34,1.56,.64,1) forwards;
+}
+@keyframes idlePopIn{
+  0%{ opacity:0; transform:translateY(24px) scale(.92) rotate(-1deg); }
+  60%{ opacity:1; transform:translateY(-6px) scale(1.02) rotate(.5deg); }
+  100%{ opacity:1; transform:translateY(0) scale(1) rotate(0deg); }
+}
+.idle-popup-close{
+  position:absolute;
+  top:18px; right:18px;
+  width:36px; height:36px;
+  border-radius:50%;
+  border:1px solid var(--c-line);
+  background:var(--c-paper-alt);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--c-ink);
+  transition:background .25s, transform .35s var(--ease), border-color .25s;
+}
+.idle-popup-close:hover{ background:var(--c-ink); border-color:var(--c-ink); color:#fff; transform:rotate(90deg); }
+.idle-popup .field{ margin-bottom:16px; }
+.idle-popup .field textarea{ resize:vertical; }
+.idle-popup .form-success{ padding:20px 0; background:transparent; }
+
 /* ---------- custom cursor ---------- */
 .cursor-dot{
   position:fixed;
@@ -1473,6 +1528,39 @@ h3, .h3{
   </div>
 </footer>
 
+<div class="idle-popup-backdrop" data-idle-popup>
+  <div class="idle-popup">
+    <div class="floater f-gold" style="width:46px;top:-6%;left:-7%;opacity:.35"></div>
+    <button type="button" class="idle-popup-close" data-idle-popup-close aria-label="Close">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <span class="eyebrow">Still thinking it over?</span>
+    <h3 class="h3 mt-16">Got an idea worth talking about?</h3>
+    <p class="body-text mt-8">Leave your details — we'll get back to you within a day, no hard sell.</p>
+    <form class="mt-24" data-idle-popup-form>
+      <div class="field">
+        <label for="idle-name">Name</label>
+        <input type="text" id="idle-name" name="name" placeholder="Your name" required>
+      </div>
+      <div class="field">
+        <label for="idle-email">Email</label>
+        <input type="email" id="idle-email" name="email" placeholder="you@company.com" required>
+      </div>
+      <div class="field">
+        <label for="idle-message">What's the idea?</label>
+        <textarea id="idle-message" name="message" placeholder="A line or two is plenty..." style="min-height:80px;"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;" data-magnetic>Send it over</button>
+    </form>
+    <div class="form-success" data-idle-popup-success>
+      <div class="mini-mark" style="margin:0 auto 18px;"></div>
+      <h3 class="h3">Got it — thank you!</h3>
+      <p class="body-text mt-8">We'll be in touch within one business day.</p>
+    </div>
+  </div>
+</div>
+
+
 <script>
 /* GD+ site interactions — vanilla JS, no dependencies */
 
@@ -1622,6 +1710,44 @@ document.addEventListener('DOMContentLoaded', () => {
       if (success) success.classList.add('is-visible');
       burstConfetti();
     });
+  }
+
+  /* ---- idle contact popup (shows once, after 20s of inactivity) ---- */
+  const idlePopup = document.querySelector('[data-idle-popup]');
+  if (idlePopup && !sessionStorage.getItem('gdplusIdlePopupShown')) {
+    const IDLE_MS = 20000;
+    const activityEvents = ['mousemove', 'mousedown', 'keydown', 'scroll', 'touchstart'];
+    let idleTimer;
+
+    const openPopup = () => {
+      idlePopup.classList.add('is-visible');
+      sessionStorage.setItem('gdplusIdlePopupShown', '1');
+      activityEvents.forEach(evt => window.removeEventListener(evt, resetIdleTimer));
+    };
+    const resetIdleTimer = () => {
+      clearTimeout(idleTimer);
+      idleTimer = setTimeout(openPopup, IDLE_MS);
+    };
+    const closePopup = () => idlePopup.classList.remove('is-visible');
+
+    activityEvents.forEach(evt => window.addEventListener(evt, resetIdleTimer, { passive: true }));
+    resetIdleTimer();
+
+    idlePopup.querySelector('[data-idle-popup-close]')?.addEventListener('click', closePopup);
+    idlePopup.addEventListener('click', (e) => { if (e.target === idlePopup) closePopup(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closePopup(); });
+
+    const idleForm = idlePopup.querySelector('[data-idle-popup-form]');
+    if (idleForm) {
+      idleForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const success = idlePopup.querySelector('[data-idle-popup-success]');
+        idleForm.style.display = 'none';
+        if (success) success.classList.add('is-visible');
+        burstConfetti();
+        setTimeout(closePopup, 2400);
+      });
+    }
   }
 
   function burstConfetti() {
