@@ -98,29 +98,41 @@ section{ position:relative; }
   background:var(--c-primary);
 }
 h1, .h1{
-  font-size:clamp(2.6rem, 6vw, 5.2rem);
-  font-weight:800;
-  line-height:1.02;
+  font-size:clamp(2.8rem, 7vw, 7.5rem);
+  font-weight:700;
+  line-height:1;
   letter-spacing:-.02em;
 }
-h2, .h2{
-  font-size:clamp(2rem, 4vw, 3.2rem);
-  font-weight:800;
-  line-height:1.06;
+.subtitle{
+  font-size:clamp(2.2rem, 5.6vw, 6rem);
+  font-weight:600;
+  line-height:1.04;
   letter-spacing:-.01em;
 }
-h3, .h3{
-  font-size:clamp(1.3rem, 2vw, 1.6rem);
+h2, .h2{
+  font-size:clamp(2rem, 4vw, 4rem);
   font-weight:700;
+  line-height:1.05;
+  letter-spacing:-.01em;
+}
+.subheading{
+  font-size:clamp(1.5rem, 2.8vw, 2.625rem);
+  font-weight:500;
+  line-height:1.15;
+}
+h3, .h3{
+  font-size:clamp(1.3rem, 2vw, 1.75rem);
+  font-weight:500;
   line-height:1.2;
 }
 .lede{
-  font-size:clamp(1.05rem, 1.6vw, 1.3rem);
+  font-size:clamp(1.05rem, 1.6vw, 1.3125rem);
   line-height:1.55;
   color:var(--c-ink-soft);
-  font-weight:500;
+  font-weight:400;
 }
-.body-text{ font-size:1rem; line-height:1.7; color:var(--c-ink-soft); }
+.body-text{ font-size:1rem; line-height:1.7; color:var(--c-ink-soft); font-weight:400; }
+.caption{ font-size:1rem; line-height:1.5; color:var(--c-ink-soft); font-weight:400; }
 
 /* ---------- buttons ---------- */
 .btn{
@@ -436,7 +448,7 @@ h3, .h3{
 }
 .hero--video .eyebrow{ color:#fff; }
 .hero--video .eyebrow::before{ background:var(--c-tertiary); }
-.hero--video h1{ color:#fff; }
+.hero--video h1{ color:#fff; font-size:clamp(2.6rem, 4.4vw, 4.5rem); line-height:1.05; }
 .hero--video .lede{ color:rgba(255,255,255,.84); }
 .hero--video .sticker{
   background:rgba(28,25,23,.5);
