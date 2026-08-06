@@ -190,7 +190,7 @@ ul{ margin:0; padding:0; list-style:none; }
 }
 
 /* ---------- sitemap columns (grouped) ---------- */
-.sm-cols{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:32px; }
+.sm-cols{ display:grid; grid-template-columns:repeat(5,1fr); gap:12px; margin-top:32px; }
 .sm-col{ border:1px solid var(--c-line); border-radius:var(--r-md); overflow:hidden; }
 .sm-col h4{
   font-size:.68rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase;
@@ -306,12 +306,13 @@ ul{ margin:0; padding:0; list-style:none; }
     <div class="toc-list">
       <div class="toc-row"><span class="toc-num">01</span><span class="toc-name">Executive Summary</span><span class="toc-page">Pg. 03</span></div>
       <div class="toc-row"><span class="toc-num">02</span><span class="toc-name">Scope of Work</span><span class="toc-page">Pg. 04</span></div>
-      <div class="toc-row"><span class="toc-num">03</span><span class="toc-name">Sitemap — 20 Pages</span><span class="toc-page">Pg. 06</span></div>
+      <div class="toc-row"><span class="toc-num">03</span><span class="toc-name">Sitemap — 22 Pages</span><span class="toc-page">Pg. 06</span></div>
       <div class="toc-row"><span class="toc-num">04</span><span class="toc-name">Homepage Mockup</span><span class="toc-page">Pg. 07</span></div>
       <div class="toc-row"><span class="toc-num">05</span><span class="toc-name">Blog Mockup</span><span class="toc-page">Pg. 08</span></div>
-      <div class="toc-row"><span class="toc-num">06</span><span class="toc-name">Timeline</span><span class="toc-page">Pg. 09</span></div>
-      <div class="toc-row"><span class="toc-num">07</span><span class="toc-name">Investment</span><span class="toc-page">Pg. 10</span></div>
-      <div class="toc-row"><span class="toc-num">08</span><span class="toc-name">Next Steps</span><span class="toc-page">Pg. 11</span></div>
+      <div class="toc-row"><span class="toc-num">06</span><span class="toc-name">Wireframes</span><span class="toc-page">Pg. 08c</span></div>
+      <div class="toc-row"><span class="toc-num">07</span><span class="toc-name">Timeline</span><span class="toc-page">Pg. 11</span></div>
+      <div class="toc-row"><span class="toc-num">08</span><span class="toc-name">Investment</span><span class="toc-page">Pg. 12</span></div>
+      <div class="toc-row"><span class="toc-num">09</span><span class="toc-name">Next Steps</span><span class="toc-page">Pg. 13</span></div>
     </div>
   </section>
 
@@ -354,7 +355,7 @@ ul{ margin:0; padding:0; list-style:none; }
       <div class="scope-card">
         <h3><span class="dot" style="background:var(--c-primary)"></span>Website Development</h3>
         <ul>
-          <li>20-page custom website build (Elementor/WordPress)</li>
+          <li>22-page custom website build (Elementor/WordPress)</li>
           <li>Responsive design across desktop, tablet, mobile</li>
           <li>Brand guidelines applied sitewide — colours, typography, imagery treatment</li>
           <li>Sitemap and information architecture</li>
@@ -363,9 +364,10 @@ ul{ margin:0; padding:0; list-style:none; }
         </ul>
       </div>
       <div class="scope-card">
-        <h3><span class="dot" style="background:var(--c-secondary)"></span>Blog System</h3>
+        <h3><span class="dot" style="background:var(--c-secondary)"></span>Blog System &amp; Template Builder</h3>
         <ul>
           <li>Blog template design — list view and single post view</li>
+          <li>Reusable Blog Template Builder — a pre-styled Elementor template so new posts are published by filling in a form, not rebuilding a layout</li>
           <li>Category/tag structure setup</li>
           <li>Publishing protocol document — step-by-step guide for posting, featured images, SEO fields, and more</li>
         </ul>
@@ -408,8 +410,8 @@ ul{ margin:0; padding:0; list-style:none; }
   <section class="doc-page">
     <span class="page-label">GD+ Proposal · 06</span>
     <span class="page-kicker">03 — Sitemap</span>
-    <h2 class="page-title">20 pages, grouped into four systems.</h2>
-    <p class="page-sub">The information architecture below covers company, services, work &amp; insights, and contact/utility — confirmed with you before design begins.</p>
+    <h2 class="page-title">22 pages, grouped into five systems.</h2>
+    <p class="page-sub">The information architecture below covers company, audience sectors, services, work &amp; insights, and contact/utility — confirmed with you before design begins.</p>
     <div class="sm-cols">
       <div class="sm-col">
         <h4>Company</h4>
@@ -418,6 +420,13 @@ ul{ margin:0; padding:0; list-style:none; }
           <li>About</li>
           <li>Our Team</li>
           <li>Careers</li>
+        </ol>
+      </div>
+      <div class="sm-col">
+        <h4>Who We Serve</h4>
+        <ol>
+          <li>For Corporates</li>
+          <li>For Associations</li>
         </ol>
       </div>
       <div class="sm-col">
@@ -452,7 +461,7 @@ ul{ margin:0; padding:0; list-style:none; }
         </ol>
       </div>
     </div>
-    <p class="quote-note mt-24">Case Study and Blog Post are reusable WordPress templates, not individual pages — each new entry uses the same template, so the page count stays fixed as content grows.</p>
+    <p class="quote-note mt-24">Case Study and Blog Post are reusable WordPress templates, not individual pages — each new entry uses the same template, so the page count stays fixed as content grows. "For Corporates" and "For Associations" are dedicated sector landing pages, reflecting how GD+ already segments its audience across the live preview site.</p>
   </section>
 
   <!-- HOMEPAGE MOCKUP -->
@@ -490,16 +499,137 @@ ul{ margin:0; padding:0; list-style:none; }
     <p class="mockup-caption">Single post view — article header, author meta and styled body copy.</p>
   </section>
 
+  <!-- WIREFRAMES PAGE 1 -->
+  <section class="doc-page">
+    <span class="page-label">GD+ Proposal · 08c</span>
+    <span class="page-kicker">06 — Wireframes</span>
+    <h2 class="page-title">Structure before styling.</h2>
+    <p class="page-sub">Low-fidelity section maps for the core pages — the blueprint the live preview site was built on top of.</p>
+    <div class="wf-grid">
+      <div class="wf-frame">
+        <h5>Home</h5>
+        <div class="wf-body">
+          <div class="wf-block" style="height:20px;">Nav</div>
+          <div class="wf-row" style="height:60px;"><div class="wf-block">Hero copy + CTA</div><div class="wf-block">Video/gradient bg</div></div>
+          <div class="wf-block" style="height:16px;">Marquee</div>
+          <div class="wf-row" style="height:34px;"><div class="wf-block">Explore</div><div class="wf-block">Create</div><div class="wf-block">Transcend</div></div>
+          <div class="wf-block" style="height:24px;">Stats strip</div>
+          <div class="wf-row" style="height:40px;"><div class="wf-block">Work 1</div><div class="wf-block">Work 2</div><div class="wf-block">Work 3</div></div>
+          <div class="wf-block" style="height:16px;">Partners marquee</div>
+          <div class="wf-block" style="height:30px;">CTA banner</div>
+          <div class="wf-block" style="height:20px;">Newsletter</div>
+          <div class="wf-block" style="height:24px;">Footer</div>
+        </div>
+      </div>
+      <div class="wf-frame">
+        <h5>For Corporates / For Associations</h5>
+        <div class="wf-body">
+          <div class="wf-block" style="height:20px;">Nav</div>
+          <div class="wf-block" style="height:44px;">Page hero (audience-specific)</div>
+          <div class="wf-block" style="height:16px;">Marquee — offering keywords</div>
+          <div class="wf-row" style="height:60px;"><div class="wf-block">Offering</div><div class="wf-block">Offering</div><div class="wf-block">Offering</div></div>
+          <div class="wf-block" style="height:24px;">Stats strip</div>
+          <div class="wf-row" style="height:34px;"><div class="wf-block">Step</div><div class="wf-block">Step</div><div class="wf-block">Step</div><div class="wf-block">Step</div></div>
+          <div class="wf-row" style="height:40px;"><div class="wf-block">Case</div><div class="wf-block">Case</div></div>
+          <div class="wf-block" style="height:26px;">Client quote</div>
+          <div class="wf-block" style="height:30px;">CTA banner</div>
+          <div class="wf-block" style="height:20px;">Newsletter + Footer</div>
+        </div>
+      </div>
+      <div class="wf-frame">
+        <h5>Services</h5>
+        <div class="wf-body">
+          <div class="wf-block" style="height:20px;">Nav</div>
+          <div class="wf-block" style="height:44px;">Page hero</div>
+          <div class="wf-block" style="height:70px;">Services list 01–06</div>
+          <div class="wf-row" style="height:34px;"><div class="wf-block">Discover</div><div class="wf-block">Design</div><div class="wf-block">Deliver</div><div class="wf-block">Delight</div></div>
+          <div class="wf-row" style="height:34px;"><div class="wf-block">Speed</div><div class="wf-block">Partner</div><div class="wf-block">Craft</div></div>
+          <div class="wf-block" style="height:30px;">CTA banner</div>
+          <div class="wf-block" style="height:20px;">Newsletter + Footer</div>
+        </div>
+      </div>
+      <div class="wf-frame">
+        <h5>Case Studies (Archive)</h5>
+        <div class="wf-body">
+          <div class="wf-block" style="height:20px;">Nav</div>
+          <div class="wf-block" style="height:44px;">Page hero</div>
+          <div class="wf-block" style="height:18px;">Filter chips</div>
+          <div class="wf-row" style="height:70px;"><div class="wf-block">Card</div><div class="wf-block">Card</div><div class="wf-block">Card</div></div>
+          <div class="wf-row" style="height:70px;"><div class="wf-block">Card</div><div class="wf-block">Card</div><div class="wf-block">Card</div></div>
+          <div class="wf-block" style="height:30px;">CTA banner</div>
+          <div class="wf-block" style="height:20px;">Newsletter + Footer</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WIREFRAMES PAGE 2 -->
+  <section class="doc-page">
+    <span class="page-label">GD+ Proposal · 08d</span>
+    <span class="page-kicker">06 — Wireframes (continued)</span>
+    <h2 class="page-title">Templates that scale with content.</h2>
+    <p class="page-sub">Case Study and Blog Post are reusable templates — one structure, unlimited entries.</p>
+    <div class="wf-grid">
+      <div class="wf-frame">
+        <h5>Case Study (Template)</h5>
+        <div class="wf-body">
+          <div class="wf-block" style="height:20px;">Nav</div>
+          <div class="wf-block" style="height:16px;">Crumbs + eyebrow</div>
+          <div class="wf-block" style="height:30px;">Title + project meta</div>
+          <div class="wf-block" style="height:44px;">Cover image</div>
+          <div class="wf-block" style="height:22px;">Results stats</div>
+          <div class="wf-row" style="height:40px;"><div class="wf-block">Step</div><div class="wf-block">Step</div><div class="wf-block">Step</div></div>
+          <div class="wf-row" style="height:34px;"><div class="wf-block">Gallery</div><div class="wf-block">Gallery</div></div>
+          <div class="wf-block" style="height:26px;">Client quote</div>
+          <div class="wf-block" style="height:20px;">Related work + Footer</div>
+        </div>
+      </div>
+      <div class="wf-frame">
+        <h5>Blog (Archive)</h5>
+        <div class="wf-body">
+          <div class="wf-block" style="height:20px;">Nav</div>
+          <div class="wf-block" style="height:44px;">Page hero</div>
+          <div class="wf-block" style="height:50px;">Featured post banner</div>
+          <div class="wf-block" style="height:18px;">Category chips</div>
+          <div class="wf-row" style="height:60px;"><div class="wf-block">Post</div><div class="wf-block">Post</div><div class="wf-block">Post</div></div>
+          <div class="wf-block" style="height:20px;">Newsletter + Footer</div>
+        </div>
+      </div>
+      <div class="wf-frame">
+        <h5>Blog Post (Template)</h5>
+        <div class="wf-body">
+          <div class="wf-block" style="height:20px;">Nav</div>
+          <div class="wf-block" style="height:16px;">Crumbs + category tag</div>
+          <div class="wf-block" style="height:24px;">Title + author meta</div>
+          <div class="wf-block" style="height:44px;">Cover image</div>
+          <div class="wf-block" style="height:80px;">Article body — h2/h3, quotes, figures</div>
+          <div class="wf-block" style="height:26px;">Author card</div>
+          <div class="wf-row" style="height:34px;"><div class="wf-block">Related</div><div class="wf-block">Related</div><div class="wf-block">Related</div></div>
+          <div class="wf-block" style="height:20px;">Newsletter + Footer</div>
+        </div>
+      </div>
+      <div class="wf-frame">
+        <h5>Contact</h5>
+        <div class="wf-body">
+          <div class="wf-block" style="height:20px;">Nav</div>
+          <div class="wf-block" style="height:44px;">Page hero</div>
+          <div class="wf-row" style="height:110px;"><div class="wf-block">Form — name, email, brief</div><div class="wf-block">Contact info card</div></div>
+          <div class="wf-block" style="height:20px;">Newsletter + Footer</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- TIMELINE -->
   <section class="doc-page">
-    <span class="page-label">GD+ Proposal · 09</span>
-    <span class="page-kicker">06 — Timeline</span>
+    <span class="page-label">GD+ Proposal · 11</span>
+    <span class="page-kicker">07 — Timeline</span>
     <h2 class="page-title">An eight to ten week build.</h2>
     <p class="page-sub">Indicative — the exact schedule firms up once final content and any WordPress migration needs are confirmed.</p>
     <div class="timeline">
       <div class="tl-step"><div class="tl-dot">1</div><h4>Discovery &amp; IA</h4><span>Weeks 1–2</span><p>Sitemap sign-off, content audit, homepage wireframe</p></div>
       <div class="tl-step"><div class="tl-dot">2</div><h4>Design</h4><span>Weeks 2–3</span><p>Homepage mockup, blog templates, component library</p></div>
-      <div class="tl-step"><div class="tl-dot">3</div><h4>Build</h4><span>Weeks 3–6</span><p>20-page Elementor/WordPress build, forms wired up</p></div>
+      <div class="tl-step"><div class="tl-dot">3</div><h4>Build</h4><span>Weeks 3–6</span><p>22-page Elementor/WordPress build, forms wired up</p></div>
       <div class="tl-step"><div class="tl-dot">4</div><h4>Automation &amp; SEO</h4><span>Weeks 6–7</span><p>Mailchimp setup, automation flows, on-page SEO</p></div>
       <div class="tl-step"><div class="tl-dot">5</div><h4>QA &amp; Launch</h4><span>Weeks 7–8</span><p>Cross-device testing, stakeholder review, go-live</p></div>
     </div>
@@ -507,17 +637,17 @@ ul{ margin:0; padding:0; list-style:none; }
       <tr><th>Phase</th><th>Key deliverable</th></tr>
       <tr><td>Discovery &amp; IA</td><td>Approved sitemap and homepage wireframe</td></tr>
       <tr><td>Design</td><td>Approved homepage mockup + blog mockup (this document)</td></tr>
-      <tr><td>Build</td><td>20 fully built, responsive, on-brand pages</td></tr>
+      <tr><td>Build</td><td>22 fully built, responsive, on-brand pages</td></tr>
       <tr><td>Automation &amp; SEO</td><td>Mailchimp flows live; sitemap.xml, robots.txt, meta fields in place</td></tr>
-      <tr><td>QA &amp; Launch</td><td>Tested, launched site + publishing protocol document</td></tr>
+      <tr><td>QA &amp; Launch</td><td>Tested, launched site + Blog Template Builder + publishing protocol document</td></tr>
       <tr><td>Support (3 months)</td><td>10 hrs/month — fixes, content updates, flow adjustments</td></tr>
     </table>
   </section>
 
   <!-- INVESTMENT -->
   <section class="doc-page">
-    <span class="page-label">GD+ Proposal · 10</span>
-    <span class="page-kicker">07 — Investment</span>
+    <span class="page-label">GD+ Proposal · 12</span>
+    <span class="page-kicker">08 — Investment</span>
     <h2 class="page-title">Quote summary.</h2>
     <p class="page-sub">Figures below are placeholders — fill in before sending. Broken out by workstream so scope can flex without reworking the whole quote.</p>
     <table class="quote-table">
@@ -540,7 +670,7 @@ ul{ margin:0; padding:0; list-style:none; }
       <div><b>GD+</b><small>Communications &amp; Events Agency</small></div>
     </div>
     <div>
-      <span class="page-kicker">08 — Next Steps</span>
+      <span class="page-kicker">09 — Next Steps</span>
       <h2 class="closing-title">Let's confirm scope and get started.</h2>
       <p class="cover-tagline">Sign off on the sitemap and homepage direction, confirm the quote, and Week 1 discovery begins.</p>
       <div class="cta-chip">Ready when you are →</div>
