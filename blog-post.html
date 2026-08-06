@@ -69,8 +69,12 @@ h1,h2,h3,h4,p{ margin:0; }
 
 .container{
   width:100%;
+  max-width:1600px;
   margin:0 auto;
-  padding:0 24px;
+  padding:0 48px;
+}
+@media (max-width:760px){
+  .container{ padding:0 24px; }
 }
 section{ position:relative; }
 

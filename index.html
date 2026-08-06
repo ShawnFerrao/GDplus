@@ -69,8 +69,12 @@ h1,h2,h3,h4,p{ margin:0; }
 
 .container{
   width:100%;
+  max-width:1600px;
   margin:0 auto;
-  padding:0 24px;
+  padding:0 48px;
+}
+@media (max-width:760px){
+  .container{ padding:0 24px; }
 }
 section{ position:relative; }
 
@@ -1478,7 +1482,7 @@ h3, .h3{
       <div class="cta-banner" data-reveal>
         <div class="floater f-orange" style="width:90px;top:-10%;right:8%;opacity:.25"></div>
         <span class="eyebrow" style="color:var(--c-tertiary)">Let's make something</span>
-        <h2 class="mt-16">Got an idea worth<br><span class="text-gradient">throwing a party for?</span></h2>
+        <h2 class="mt-16">Got an idea worth<br><span class="text-gradient">bringing to life?</span></h2>
         <div class="btn-row">
           <a href="contact.html" class="btn btn-primary" data-magnetic>Start a project <span class="btn-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M10 7h7v7"/></svg></span></a>
           <a href="services.html" class="btn btn-ghost on-dark" data-magnetic>Explore services</a>
