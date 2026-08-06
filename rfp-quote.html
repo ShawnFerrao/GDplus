@@ -190,7 +190,7 @@ ul{ margin:0; padding:0; list-style:none; }
 }
 
 /* ---------- sitemap columns (grouped) ---------- */
-.sm-cols{ display:grid; grid-template-columns:repeat(5,1fr); gap:12px; margin-top:32px; }
+.sm-cols{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:32px; }
 .sm-col{ border:1px solid var(--c-line); border-radius:var(--r-md); overflow:hidden; }
 .sm-col h4{
   font-size:.68rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase;
@@ -201,6 +201,7 @@ ul{ margin:0; padding:0; list-style:none; }
   counter-increment:pg;
   font-size:.78rem; font-weight:600; padding:8px 14px;
   display:flex; gap:8px; border-top:1px solid var(--c-line);
+  min-width:0; overflow-wrap:break-word;
 }
 .sm-col li:first-child{ border-top:none; }
 .sm-col li::before{
@@ -410,8 +411,8 @@ ul{ margin:0; padding:0; list-style:none; }
   <section class="doc-page">
     <span class="page-label">GD+ Proposal · 06</span>
     <span class="page-kicker">03 — Sitemap</span>
-    <h2 class="page-title">22 pages, grouped into five systems.</h2>
-    <p class="page-sub">The information architecture below covers company, audience sectors, services, work &amp; insights, and contact/utility — confirmed with you before design begins.</p>
+    <h2 class="page-title">22 pages, grouped into four systems.</h2>
+    <p class="page-sub">The information architecture below covers company (including sector landing pages for corporates and associations), services, work &amp; insights, and contact/utility — confirmed with you before design begins.</p>
     <div class="sm-cols">
       <div class="sm-col">
         <h4>Company</h4>
@@ -420,11 +421,6 @@ ul{ margin:0; padding:0; list-style:none; }
           <li>About</li>
           <li>Our Team</li>
           <li>Careers</li>
-        </ol>
-      </div>
-      <div class="sm-col">
-        <h4>Who We Serve</h4>
-        <ol>
           <li>For Corporates</li>
           <li>For Associations</li>
         </ol>
