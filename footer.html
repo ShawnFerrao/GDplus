@@ -1,0 +1,725 @@
+<!-- ════════════════════════════════════════════════════════
+     GD+ SITE FOOTER — paste into Elementor's Footer Theme
+     Builder template (Templates → Theme Builder → Footer),
+     inside an HTML widget. Do NOT paste this into a regular
+     page's content area, for the same reason as header.html:
+     Elementor's Footer template renders full-width by design.
+
+     This file also carries:
+     - the "Stay in the loop" newsletter strip (sits just above
+       the footer on every page)
+     - the idle-popup contact form (appears after 20s of
+       inactivity, triggered from anywhere on the site)
+     - the full site-wide interaction script: mobile nav toggle,
+       scroll-reveal, animated counters, magnetic buttons, tilt
+       cards, custom cursor, case-study filters, newsletter/
+       contact/idle-popup form handling, confetti, and automatic
+       nav-link "active" highlighting based on the current URL
+       (since a shared header template can't hardcode which page
+       is active the way the standalone preview pages do).
+
+     Because the footer renders after both the header and the
+     page content in the final DOM, its <script> can safely
+     query elements from all three — this is why the script
+     lives here rather than in header.html or a page widget.
+
+     Some CSS here duplicates header.html (tokens, buttons,
+     container, text-gradient) — that's expected. Each file is
+     self-contained so it works regardless of which one Elementor
+     happens to load first.
+════════════════════════════════════════════════════════ -->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,600&display=swap');
+
+  :root{
+    /* brand */
+    --c-primary: #ec5628;
+    --c-primary-ink: #a83c17;
+    --c-primary-light: #ffe3d6;
+    --c-secondary: #5799d2;
+    --c-secondary-ink: #2f6699;
+    --c-secondary-light: #dcecfa;
+    --c-tertiary: #ffcc02;
+    --c-tertiary-ink: #8a6a00;
+    --c-tertiary-light: #fff3c4;
+
+    /* neutrals */
+    --c-ink: #1c1917;
+    --c-ink-soft: #4a4441;
+    --c-paper: #fdf7f2;
+    --c-paper-alt: #ffffff;
+    --c-surface: #f5ece4;
+    --c-line: #e8dcd1;
+    --c-dark: #201d1a;
+    --c-dark-surface: #2b2622;
+
+    /* shape */
+    --r-sm: 14px;
+    --r-md: 24px;
+    --r-lg: 36px;
+    --r-pill: 999px;
+
+    /* motion */
+    --ease: cubic-bezier(.22,1,.36,1);
+
+    /* type */
+    --font: 'Public Sans', system-ui, sans-serif;
+  }
+
+  .site-footer, .news-strip, .idle-popup-backdrop,
+  .site-footer *, .news-strip *, .idle-popup-backdrop *{ box-sizing:border-box; }
+  .site-footer, .news-strip, .idle-popup-backdrop{ font-family:var(--font); }
+  .site-footer a, .news-strip a, .idle-popup-backdrop a{ color:inherit; text-decoration:none; }
+  .site-footer ul{ margin:0; padding:0; list-style:none; }
+  .site-footer button, .news-strip button, .idle-popup-backdrop button{ font-family:inherit; cursor:pointer; }
+  .site-footer h1, .site-footer h2, .site-footer h3, .site-footer h4, .site-footer p,
+  .news-strip h1, .news-strip h2, .news-strip h3, .news-strip p,
+  .idle-popup-backdrop h1, .idle-popup-backdrop h2, .idle-popup-backdrop h3, .idle-popup-backdrop p{ margin:0; }
+
+  .container{
+    width:100%;
+    max-width:1600px;
+    margin:0 auto;
+    padding:0 48px;
+  }
+  @media (max-width:760px){
+    .container{ padding:0 24px; }
+  }
+  .section{ padding:96px 0; }
+
+  /* ---------- type scale (subset needed here) ---------- */
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--c-primary-ink);
+  }
+  .eyebrow::before{
+    content:'';
+    width:8px;height:8px;
+    border-radius:50%;
+    background:var(--c-primary);
+  }
+  .h3{
+    font-size:clamp(1.3rem, 2vw, 1.6rem);
+    font-weight:700;
+    line-height:1.2;
+  }
+  .body-text{ font-size:1rem; line-height:1.7; color:var(--c-ink-soft); }
+
+  /* ---------- buttons ---------- */
+  .btn{
+    position:relative;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:16px 30px;
+    border-radius:var(--r-pill);
+    font-weight:700;
+    font-size:.95rem;
+    border:2px solid transparent;
+    transition:transform .35s var(--ease), box-shadow .35s var(--ease), background .25s, color .25s, border-color .25s;
+    white-space:nowrap;
+  }
+  .btn-primary{
+    background:var(--c-primary);
+    color:#fff;
+    box-shadow:0 10px 24px -8px rgba(236,86,40,.55);
+  }
+  .btn-primary:hover{ box-shadow:0 16px 34px -8px rgba(236,86,40,.65); transform:translateY(-2px); }
+
+  /* ---------- brand gradient text (blue -> orange -> yellow, fixed direction) ---------- */
+  .text-gradient{
+    background:linear-gradient(90deg, var(--c-secondary), var(--c-primary), var(--c-tertiary));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+  .brand .text-gradient{
+    -webkit-background-clip:text;
+    background-clip:text;
+  }
+
+  /* ---------- decorative floating plus marks ---------- */
+  .floater{
+    position:absolute;
+    z-index:0;
+    opacity:.5;
+    filter:blur(.3px);
+    animation:floaty 9s ease-in-out infinite;
+  }
+  .floater::before,.floater::after{
+    content:'';
+    position:absolute;
+    border-radius:var(--r-pill);
+  }
+  .floater.f-orange::before,.floater.f-orange::after{ background:var(--c-primary); }
+  .floater.f-blue::before,.floater.f-blue::after{ background:var(--c-secondary); }
+  .floater.f-gold::before,.floater.f-gold::after{ background:var(--c-tertiary); }
+  .floater::before{ left:38%; right:38%; top:0; bottom:0; }
+  .floater::after{ top:38%; bottom:38%; left:0; right:0; }
+  @keyframes floaty{
+    0%,100%{ transform:translate(0,0) rotate(0deg); }
+    50%{ transform:translate(-14px,18px) rotate(18deg); }
+  }
+
+  /* ---------- reveal ---------- */
+  [data-reveal]{
+    opacity:0;
+    transform:translateY(28px);
+    transition:opacity .7s var(--ease), transform .7s var(--ease);
+  }
+  [data-reveal].is-visible{ opacity:1; transform:translateY(0); }
+
+  /* ---------- form fields (idle popup) ---------- */
+  .field{ margin-bottom:18px; }
+  .field label{ display:block; font-weight:700; font-size:.85rem; margin-bottom:8px; }
+  .field input, .field textarea, .field select{
+    width:100%;
+    padding:15px 18px;
+    border-radius:var(--r-sm);
+    border:1.5px solid var(--c-line);
+    background:var(--c-paper-alt);
+    font-family:inherit;
+    font-size:.95rem;
+    color:var(--c-ink);
+    transition:border-color .25s, box-shadow .25s;
+  }
+  .field input:focus, .field textarea:focus, .field select:focus{
+    outline:none;
+    border-color:var(--c-primary);
+    box-shadow:0 0 0 4px var(--c-primary-light);
+  }
+  .field textarea{ resize:vertical; min-height:130px; }
+
+  .form-success{
+    display:none;
+    border-radius:var(--r-lg);
+    padding:40px;
+    background:var(--c-tertiary-light);
+    text-align:center;
+  }
+  .form-success.is-visible{ display:block; }
+  .form-success .mini-mark{ margin:0 auto 18px; }
+
+  .mini-mark{ position:relative; width:28px; height:28px; }
+  .mini-mark::before,.mini-mark::after{ content:''; position:absolute; border-radius:var(--r-pill); background:var(--c-primary); }
+  .mini-mark::before{ left:38%; right:38%; top:0; bottom:0; }
+  .mini-mark::after{ top:38%; bottom:38%; left:0; right:0; }
+
+  /* ---------- custom cursor ---------- */
+  .cursor-dot{
+    position:fixed;
+    z-index:9999;
+    width:22px;height:22px;
+    border-radius:var(--r-pill);
+    border:2px solid var(--c-primary);
+    pointer-events:none;
+    transform:translate(-50%,-50%);
+    transition:width .2s var(--ease), height .2s var(--ease), background .2s;
+    mix-blend-mode:multiply;
+  }
+  .cursor-dot.is-active{ background:var(--c-primary); width:38px; height:38px; }
+  @media (pointer:coarse){ .cursor-dot{ display:none; } }
+
+  /* ---------- confetti ---------- */
+  .confetti-piece{
+    position:fixed;
+    z-index:9998;
+    width:8px; height:14px;
+    top:50%; left:50%;
+    pointer-events:none;
+    border-radius:2px;
+  }
+
+  /* utility */
+  .mt-8{ margin-top:8px; }
+  .mt-16{ margin-top:16px; }
+  .mt-24{ margin-top:24px; }
+
+  /* ---------- newsletter strip ---------- */
+  .news-strip{
+    background:var(--c-ink);
+    border-radius:var(--r-lg);
+    padding:44px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:24px;
+    align-items:center;
+    justify-content:space-between;
+    color:#fff;
+  }
+  .news-strip h3{ max-width:360px; }
+  .news-strip p{ color:#cfc6bd; margin-top:8px; }
+  .news-form{ display:flex; gap:10px; flex-wrap:wrap; }
+  .news-form input{
+    padding:14px 18px;
+    border-radius:var(--r-pill);
+    border:1.5px solid rgba(255,255,255,.2);
+    background:rgba(255,255,255,.06);
+    color:#fff;
+    min-width:240px;
+    font-family:inherit;
+    font-size:.9rem;
+  }
+  .news-form input::placeholder{ color:#a89f95; }
+  .news-form input:focus{ outline:none; border-color:var(--c-primary); }
+  .news-form button{
+    padding:14px 26px;
+    border-radius:var(--r-pill);
+    background:var(--c-primary);
+    color:#fff;
+    font-weight:700;
+    border:none;
+    font-size:.9rem;
+  }
+  .news-form button:hover{ background:#ff6a3c; }
+  .news-form.is-done span{ font-weight:700; color:var(--c-tertiary); }
+
+  /* ---------- footer ---------- */
+  .site-footer{
+    width:100vw;
+    margin-left:calc(50% - 50vw);
+    background:var(--c-dark);
+    color:#efe7de;
+    padding:72px 0 28px;
+  }
+  .footer-grid{
+    display:grid;
+    gap:40px;
+    grid-template-columns:1.4fr repeat(3,1fr);
+    padding-bottom:48px;
+    border-bottom:1px solid rgba(255,255,255,.12);
+  }
+  .footer-grid h4{ font-size:.82rem; letter-spacing:.1em; text-transform:uppercase; color:#a89f95; margin-bottom:18px; }
+  .footer-grid ul{ display:grid; gap:12px; }
+  .footer-grid a{ font-weight:600; color:#efe7de; opacity:.85; transition:opacity .2s, color .2s; }
+  .footer-grid a:hover{ opacity:1; color:var(--c-tertiary); }
+  .footer-bottom{
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:12px;
+    padding-top:28px;
+    font-size:.85rem;
+    color:#a89f95;
+  }
+  .footer-brand p{ margin-top:16px; max-width:280px; color:#a89f95; line-height:1.6; }
+  .footer-social{ display:flex; gap:10px; margin-top:20px; }
+  .footer-social a{
+    width:38px;height:38px;
+    border-radius:var(--r-pill);
+    border:1px solid rgba(255,255,255,.2);
+    display:flex; align-items:center; justify-content:center;
+    font-size:.8rem; font-weight:700;
+  }
+  .footer-social a:hover{ background:var(--c-primary); border-color:var(--c-primary); color:#fff; }
+  .logo-mark{
+    position:relative;
+    width:34px; height:34px;
+    flex:none;
+  }
+  .logo-mark::before,
+  .logo-mark::after{
+    content:'';
+    position:absolute;
+    border-radius:var(--r-pill);
+    background:linear-gradient(135deg, var(--c-secondary), var(--c-primary) 55%, var(--c-tertiary));
+  }
+  .logo-mark::before{ left:38%; right:38%; top:0; bottom:0; }
+  .logo-mark::after{ top:38%; bottom:38%; left:0; right:0; }
+  .brand{ display:flex; align-items:center; gap:12px; font-weight:800; font-size:1.15rem; letter-spacing:-.01em; }
+
+  @media (max-width:760px){
+    .footer-grid{ grid-template-columns:1fr 1fr; }
+  }
+
+  /* ---------- idle contact popup ---------- */
+  .idle-popup-backdrop{
+    position:fixed;
+    inset:0;
+    z-index:9990;
+    background:rgba(28,25,23,.5);
+    backdrop-filter:blur(4px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .35s var(--ease);
+  }
+  .idle-popup-backdrop.is-visible{ opacity:1; pointer-events:auto; }
+  .idle-popup{
+    position:relative;
+    width:100%;
+    max-width:440px;
+    max-height:90vh;
+    overflow-y:auto;
+    background:var(--c-paper-alt);
+    border-radius:var(--r-lg);
+    padding:44px;
+    box-shadow:0 40px 90px -30px rgba(28,25,23,.5);
+    opacity:0;
+    transform:translateY(24px) scale(.92) rotate(-1deg);
+  }
+  .idle-popup-backdrop.is-visible .idle-popup{
+    animation:idlePopIn .6s cubic-bezier(.34,1.56,.64,1) forwards;
+  }
+  @keyframes idlePopIn{
+    0%{ opacity:0; transform:translateY(24px) scale(.92) rotate(-1deg); }
+    60%{ opacity:1; transform:translateY(-6px) scale(1.02) rotate(.5deg); }
+    100%{ opacity:1; transform:translateY(0) scale(1) rotate(0deg); }
+  }
+  .idle-popup-close{
+    position:absolute;
+    top:18px; right:18px;
+    width:36px; height:36px;
+    border-radius:50%;
+    border:1px solid var(--c-line);
+    background:var(--c-paper-alt);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--c-ink);
+    transition:background .25s, transform .35s var(--ease), border-color .25s;
+  }
+  .idle-popup-close:hover{ background:var(--c-ink); border-color:var(--c-ink); color:#fff; transform:rotate(90deg); }
+  .idle-popup .field{ margin-bottom:16px; }
+  .idle-popup .field textarea{ resize:vertical; }
+  .idle-popup .form-success{ padding:20px 0; background:transparent; }
+</style>
+
+<section class="section" style="padding-top:0;">
+  <div class="container">
+    <div class="news-strip" data-reveal>
+      <div>
+        <span class="eyebrow" style="color:var(--c-tertiary)">Stay in the loop</span>
+        <h3 class="h3 mt-16">Occasional notes on what we're building.</h3>
+        <p>No spam, just the odd campaign teaser or event invite.</p>
+      </div>
+      <form class="news-form" data-news-form>
+        <input type="email" placeholder="you@company.com" required aria-label="Email address">
+        <button type="submit">Sign up</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="brand" style="color:#fff">
+          <span class="logo-mark"></span>
+          <span><span class="text-gradient">G</span>D+</span>
+        </a>
+        <p>People. Possibilities. Powered by design. GD+ is the communications &amp; events division of Gulf Dunes, based in Dubai, UAE.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="LinkedIn">in</a>
+          <a href="#" aria-label="Instagram">ig</a>
+          <a href="#" aria-label="X">x</a>
+        </div>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="corporates.html">Corporates</a></li>
+          <li><a href="associations.html">Associations</a></li>
+          <li><a href="case-studies.html">Case Studies</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <ul>
+          <li><a href="services.html">Brand Communications</a></li>
+          <li><a href="services.html">Event Production</a></li>
+          <li><a href="services.html">Activations</a></li>
+          <li><a href="services.html">Content Studio</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Get in touch</h4>
+        <ul>
+          <li><a href="mailto:hello@gdplus.agency">hello@gdplus.agency</a></li>
+          <li><a href="tel:+97140000000">+971 4 000 0000</a></li>
+          <li>Al Barsha Boutique Building,<br>3rd Floor, Barsha 1, Dubai, UAE</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 GD+ — A Gulf Dunes Division. All rights reserved.</span>
+      <span>Made with curiosity in Dubai.</span>
+    </div>
+  </div>
+</footer>
+
+<div class="idle-popup-backdrop" data-idle-popup>
+  <div class="idle-popup">
+    <div class="floater f-gold" style="width:46px;top:-6%;left:-7%;opacity:.35"></div>
+    <button type="button" class="idle-popup-close" data-idle-popup-close aria-label="Close">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <span class="eyebrow">Still thinking it over?</span>
+    <h3 class="h3 mt-16">Got an idea worth talking about?</h3>
+    <p class="body-text mt-8">Leave your details — we'll get back to you within a day, no hard sell.</p>
+    <form class="mt-24" data-idle-popup-form>
+      <div class="field">
+        <label for="idle-name">Name</label>
+        <input type="text" id="idle-name" name="name" placeholder="Your name" required>
+      </div>
+      <div class="field">
+        <label for="idle-email">Email</label>
+        <input type="email" id="idle-email" name="email" placeholder="you@company.com" required>
+      </div>
+      <div class="field">
+        <label for="idle-message">What's the idea?</label>
+        <textarea id="idle-message" name="message" placeholder="A line or two is plenty..." style="min-height:80px;"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;" data-magnetic>Send it over</button>
+    </form>
+    <div class="form-success" data-idle-popup-success>
+      <div class="mini-mark" style="margin:0 auto 18px;"></div>
+      <h3 class="h3">Got it — thank you!</h3>
+      <p class="body-text mt-8">We'll be in touch within one business day.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+/* GD+ site interactions — vanilla JS, no dependencies.
+   Lives in the footer template so it can safely query elements
+   from the header template and every page's content, since the
+   footer always renders last in the final DOM. */
+
+document.addEventListener('DOMContentLoaded', () => {
+
+  /* ---- highlight the current page in the nav (shared header
+     has no per-page "active" state to hardcode) ---- */
+  const navLinks = document.querySelectorAll('[data-nav-links] a');
+  if (navLinks.length) {
+    const current = location.pathname.split('/').pop() || 'index.html';
+    navLinks.forEach(a => {
+      const href = a.getAttribute('href');
+      if (href === current || (current === '' && href === 'index.html')) {
+        a.classList.add('active');
+      }
+    });
+  }
+
+  /* ---- mobile nav ---- */
+  const toggle = document.querySelector('[data-nav-toggle]');
+  const links = document.querySelector('[data-nav-links]');
+  if (toggle && links) {
+    toggle.addEventListener('click', () => {
+      toggle.classList.toggle('is-open');
+      links.classList.toggle('is-open');
+    });
+    links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      toggle.classList.remove('is-open');
+      links.classList.remove('is-open');
+    }));
+  }
+
+  /* ---- scroll reveal ---- */
+  const revealEls = document.querySelectorAll('[data-reveal]');
+  if (revealEls.length) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach((el, i) => {
+      el.style.transitionDelay = `${(i % 6) * 70}ms`;
+      io.observe(el);
+    });
+  }
+
+  /* ---- hero word rotator (homepage only; no-ops elsewhere) ---- */
+  const rotator = document.querySelector('[data-rotate]');
+  if (rotator) {
+    const words = rotator.querySelectorAll('span');
+    let idx = 0;
+    words[0].classList.add('is-active');
+    setInterval(() => {
+      words[idx].classList.remove('is-active');
+      idx = (idx + 1) % words.length;
+      words[idx].classList.add('is-active');
+    }, 2200);
+  }
+
+  /* ---- animated counters ---- */
+  const counters = document.querySelectorAll('[data-counter]');
+  if (counters.length) {
+    const io2 = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        const target = parseFloat(el.dataset.counter);
+        const suffix = el.dataset.suffix || '';
+        const dur = 1400;
+        const start = performance.now();
+        const step = (now) => {
+          const p = Math.min(1, (now - start) / dur);
+          const eased = 1 - Math.pow(1 - p, 3);
+          const val = !Number.isInteger(target) ? (target * eased).toFixed(1) : Math.round(target * eased);
+          el.textContent = val + suffix;
+          if (p < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+        io2.unobserve(el);
+      });
+    }, { threshold: 0.6 });
+    counters.forEach(c => io2.observe(c));
+  }
+
+  /* ---- magnetic buttons ---- */
+  const magnets = document.querySelectorAll('[data-magnetic]');
+  magnets.forEach(btn => {
+    btn.addEventListener('mousemove', (e) => {
+      const r = btn.getBoundingClientRect();
+      const x = e.clientX - r.left - r.width / 2;
+      const y = e.clientY - r.top - r.height / 2;
+      btn.style.transform = `translate(${x * 0.25}px, ${y * 0.35}px)`;
+    });
+    btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
+  });
+
+  /* ---- tilt cards ---- */
+  const tilts = document.querySelectorAll('[data-tilt]');
+  tilts.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const r = card.getBoundingClientRect();
+      const px = (e.clientX - r.left) / r.width - 0.5;
+      const py = (e.clientY - r.top) / r.height - 0.5;
+      card.style.transform = `perspective(700px) rotateX(${-py * 6}deg) rotateY(${px * 8}deg) translateY(-4px)`;
+    });
+    card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+  });
+
+  /* ---- custom cursor ---- */
+  if (window.matchMedia('(pointer: fine)').matches) {
+    const dot = document.createElement('div');
+    dot.className = 'cursor-dot';
+    document.body.appendChild(dot);
+    window.addEventListener('mousemove', (e) => {
+      dot.style.left = e.clientX + 'px';
+      dot.style.top = e.clientY + 'px';
+    });
+    document.querySelectorAll('a, button, .card, [data-tilt]').forEach(el => {
+      el.addEventListener('mouseenter', () => dot.classList.add('is-active'));
+      el.addEventListener('mouseleave', () => dot.classList.remove('is-active'));
+    });
+  }
+
+  /* ---- case study filters ---- */
+  const chips = document.querySelectorAll('[data-filter]');
+  const caseCards = document.querySelectorAll('[data-category]');
+  if (chips.length && caseCards.length) {
+    chips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        chips.forEach(c => c.classList.remove('is-active'));
+        chip.classList.add('is-active');
+        const filter = chip.dataset.filter;
+        caseCards.forEach(card => {
+          const show = filter === 'all' || card.dataset.category === filter;
+          card.style.display = show ? '' : 'none';
+        });
+      });
+    });
+  }
+
+  /* ---- newsletter strip (dummy submit) ---- */
+  document.querySelectorAll('[data-news-form]').forEach((newsForm) => {
+    newsForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      newsForm.classList.add('is-done');
+      newsForm.innerHTML = '<span>You\'re on the list — thanks for signing up.</span>';
+    });
+  });
+
+  /* ---- contact form (dummy submit + confetti) ---- */
+  const form = document.querySelector('[data-contact-form]');
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const success = document.querySelector('[data-form-success]');
+      form.style.display = 'none';
+      if (success) success.classList.add('is-visible');
+      burstConfetti();
+    });
+  }
+
+  /* ---- idle contact popup (shows once, after 20s of inactivity) ---- */
+  const idlePopup = document.querySelector('[data-idle-popup]');
+  if (idlePopup && !sessionStorage.getItem('gdplusIdlePopupShown')) {
+    const IDLE_MS = 20000;
+    const activityEvents = ['mousemove', 'mousedown', 'keydown', 'scroll', 'touchstart'];
+    let idleTimer;
+
+    const openPopup = () => {
+      idlePopup.classList.add('is-visible');
+      sessionStorage.setItem('gdplusIdlePopupShown', '1');
+      activityEvents.forEach(evt => window.removeEventListener(evt, resetIdleTimer));
+    };
+    const resetIdleTimer = () => {
+      clearTimeout(idleTimer);
+      idleTimer = setTimeout(openPopup, IDLE_MS);
+    };
+    const closePopup = () => idlePopup.classList.remove('is-visible');
+
+    activityEvents.forEach(evt => window.addEventListener(evt, resetIdleTimer, { passive: true }));
+    resetIdleTimer();
+
+    idlePopup.querySelector('[data-idle-popup-close]')?.addEventListener('click', closePopup);
+    idlePopup.addEventListener('click', (e) => { if (e.target === idlePopup) closePopup(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closePopup(); });
+
+    const idleForm = idlePopup.querySelector('[data-idle-popup-form]');
+    if (idleForm) {
+      idleForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const success = idlePopup.querySelector('[data-idle-popup-success]');
+        idleForm.style.display = 'none';
+        if (success) success.classList.add('is-visible');
+        burstConfetti();
+        setTimeout(closePopup, 2400);
+      });
+    }
+  }
+
+  function burstConfetti() {
+    const colors = ['#ec5628', '#5799d2', '#ffcc02'];
+    const originX = window.innerWidth / 2;
+    const originY = window.innerHeight / 2.4;
+    for (let i = 0; i < 60; i++) {
+      const piece = document.createElement('div');
+      piece.className = 'confetti-piece';
+      piece.style.background = colors[i % colors.length];
+      piece.style.left = originX + 'px';
+      piece.style.top = originY + 'px';
+      document.body.appendChild(piece);
+      const angle = Math.random() * Math.PI * 2;
+      const dist = 120 + Math.random() * 260;
+      const x = Math.cos(angle) * dist;
+      const y = Math.sin(angle) * dist - 80;
+      const rot = Math.random() * 720 - 360;
+      piece.animate([
+        { transform: 'translate(0,0) rotate(0deg)', opacity: 1 },
+        { transform: `translate(${x}px, ${y + 300}px) rotate(${rot}deg)`, opacity: 0 }
+      ], { duration: 1400 + Math.random() * 600, easing: 'cubic-bezier(.22,1,.36,1)' })
+        .onfinish = () => piece.remove();
+    }
+  }
+});
+</script>

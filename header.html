@@ -1,0 +1,256 @@
+<!-- ════════════════════════════════════════════════════════
+     GD+ SITE HEADER — paste into Elementor's Header Theme
+     Builder template (Templates → Theme Builder → Header),
+     inside an HTML widget. Do NOT paste this into a regular
+     page's content area — Elementor's Header template renders
+     full-width by design, which is what fixes the "header
+     doesn't match footer width" issue caused by pasting this
+     inline into a boxed page Container.
+
+     Pairs with footer.html, which must be pasted into the
+     Footer Theme Builder template — footer.html carries the
+     site-wide interaction script (mobile nav toggle, scroll
+     reveal, magnetic buttons, etc.), the idle-popup contact
+     form, and its own copy of the shared design tokens/
+     components (some overlap with this file is expected and
+     harmless — each file is self-contained on its own).
+
+     Nav links below use plain "about.html"-style paths to match
+     the current preview pages. Once real WordPress pages exist,
+     update these to the actual permalinks (e.g. "/about/").
+════════════════════════════════════════════════════════ -->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,600&display=swap');
+
+  :root{
+    /* brand */
+    --c-primary: #ec5628;
+    --c-primary-ink: #a83c17;
+    --c-primary-light: #ffe3d6;
+    --c-secondary: #5799d2;
+    --c-secondary-ink: #2f6699;
+    --c-secondary-light: #dcecfa;
+    --c-tertiary: #ffcc02;
+    --c-tertiary-ink: #8a6a00;
+    --c-tertiary-light: #fff3c4;
+
+    /* neutrals */
+    --c-ink: #1c1917;
+    --c-ink-soft: #4a4441;
+    --c-paper: #fdf7f2;
+    --c-paper-alt: #ffffff;
+    --c-surface: #f5ece4;
+    --c-line: #e8dcd1;
+    --c-dark: #201d1a;
+    --c-dark-surface: #2b2622;
+
+    /* shape */
+    --r-sm: 14px;
+    --r-md: 24px;
+    --r-lg: 36px;
+    --r-pill: 999px;
+
+    /* motion */
+    --ease: cubic-bezier(.22,1,.36,1);
+
+    /* type */
+    --font: 'Public Sans', system-ui, sans-serif;
+  }
+
+  /* Global reset — deliberately unscoped. This needs to apply to the
+     whole page (header, page-content widgets and footer alike), not
+     just this template, since GD+'s entire design system assumes
+     border-box sizing. Declared here because the header template is
+     guaranteed to load first. */
+  *,*::before,*::after{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; overflow-x:hidden; }
+  body{
+    margin:0;
+    font-family:var(--font);
+    background:var(--c-paper);
+    color:var(--c-ink);
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  img,svg{ display:block; max-width:100%; }
+  a{ color:inherit; text-decoration:none; }
+  ul{ margin:0; padding:0; list-style:none; }
+  button{ font-family:inherit; cursor:pointer; }
+  h1,h2,h3,h4,p{ margin:0; }
+
+  .container{
+    width:100%;
+    max-width:1600px;
+    margin:0 auto;
+    padding:0 48px;
+  }
+  @media (max-width:760px){
+    .container{ padding:0 24px; }
+  }
+
+  /* ---------- buttons (subset needed for the nav CTA) ---------- */
+  .btn{
+    position:relative;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:16px 30px;
+    border-radius:var(--r-pill);
+    font-weight:700;
+    font-size:.95rem;
+    border:2px solid transparent;
+    transition:transform .35s var(--ease), box-shadow .35s var(--ease), background .25s, color .25s, border-color .25s;
+    white-space:nowrap;
+  }
+  .btn-primary{
+    background:var(--c-primary);
+    color:#fff;
+    box-shadow:0 10px 24px -8px rgba(236,86,40,.55);
+  }
+  .btn-primary:hover{ box-shadow:0 16px 34px -8px rgba(236,86,40,.65); transform:translateY(-2px); }
+  .btn-sm{ padding:11px 20px; font-size:.85rem; }
+
+  /* ---------- brand gradient text (blue -> orange -> yellow, fixed direction) ---------- */
+  .text-gradient{
+    background:linear-gradient(90deg, var(--c-secondary), var(--c-primary), var(--c-tertiary));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+  .brand .text-gradient{
+    -webkit-background-clip:text;
+    background-clip:text;
+  }
+
+  /* ---------- header / nav ---------- */
+  .site-header{
+    position:sticky;
+    top:0;
+    left:0;
+    width:100vw;
+    margin-left:calc(50% - 50vw);
+    z-index:100;
+    background:rgba(253,247,242,.82);
+    backdrop-filter:blur(14px) saturate(1.4);
+    border-bottom:1px solid var(--c-line);
+  }
+  .nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:16px 24px;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-weight:800;
+    font-size:1.15rem;
+    letter-spacing:-.01em;
+  }
+  .brand small{
+    display:block;
+    font-size:.55rem;
+    font-weight:700;
+    letter-spacing:.14em;
+    color:var(--c-ink-soft);
+    text-transform:uppercase;
+  }
+  .logo-mark{
+    position:relative;
+    width:34px; height:34px;
+    flex:none;
+  }
+  .logo-mark::before,
+  .logo-mark::after{
+    content:'';
+    position:absolute;
+    border-radius:var(--r-pill);
+    background:linear-gradient(135deg, var(--c-secondary), var(--c-primary) 55%, var(--c-tertiary));
+  }
+  .logo-mark::before{ left:38%; right:38%; top:0; bottom:0; }
+  .logo-mark::after{ top:38%; bottom:38%; left:0; right:0; }
+
+  .nav-links{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    padding:6px;
+    background:var(--c-paper-alt);
+    border-radius:var(--r-pill);
+    border:1px solid var(--c-line);
+  }
+  .nav-links a{
+    padding:9px 13px;
+    border-radius:var(--r-pill);
+    font-weight:600;
+    font-size:.85rem;
+    color:var(--c-ink-soft);
+    white-space:nowrap;
+    transition:background .25s, color .25s;
+    display:block;
+  }
+  .nav-links a:hover{ background:var(--c-surface); color:var(--c-ink); }
+  .nav-links a.active{ background:var(--c-ink); color:#fff; }
+
+  .nav-actions{ display:flex; align-items:center; gap:12px; }
+  .nav-toggle{
+    display:none;
+    width:44px; height:44px;
+    border-radius:var(--r-pill);
+    border:1px solid var(--c-line);
+    background:var(--c-paper-alt);
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    gap:5px;
+  }
+  .nav-toggle span{ width:18px; height:2px; background:var(--c-ink); border-radius:2px; transition:transform .3s, opacity .3s; }
+  .nav-toggle.is-open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+  .nav-toggle.is-open span:nth-child(2){ opacity:0; }
+  .nav-toggle.is-open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+
+  @media (max-width:1180px){
+    .nav-links{
+      position:fixed;
+      inset:78px 16px auto 16px;
+      flex-direction:column;
+      align-items:stretch;
+      padding:12px;
+      gap:4px;
+      box-shadow:0 24px 50px -20px rgba(28,25,23,.3);
+      transform:translateY(-12px);
+      opacity:0;
+      pointer-events:none;
+      transition:transform .3s var(--ease), opacity .3s var(--ease);
+      width:auto;
+    }
+    .nav-links.is-open{ transform:translateY(0); opacity:1; pointer-events:auto; }
+    .nav-links a{ text-align:center; padding:14px; }
+    .nav-toggle{ display:flex; }
+    .nav-actions .btn-sm{ display:none; }
+  }
+</style>
+
+<header class="site-header">
+  <nav class="nav container">
+    <a href="index.html" class="brand">
+      <span class="logo-mark"></span>
+      <span><span class="text-gradient">G</span>D+<small>Communications &amp; Events Agency</small></span>
+    </a>
+    <ul class="nav-links" data-nav-links>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="corporates.html">Corporates</a></li>
+      <li><a href="associations.html">Associations</a></li>
+      <li><a href="case-studies.html">Case Studies</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="contact.html" class="btn btn-primary btn-sm" data-magnetic>Talk to us</a>
+      <button class="nav-toggle" data-nav-toggle aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+</header>
